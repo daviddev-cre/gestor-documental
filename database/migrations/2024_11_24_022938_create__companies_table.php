@@ -28,8 +28,8 @@ return new class extends Migration
             $table->bigInteger('typePerson_foreigner'); // este toca mirar lo
             $table->bigInteger('sector_foreigner'); // este toca mirar lo
             $table->bigInteger('department_foreigner'); // este toca mirar lo
-            $table->bigInteger('review_foreigner');  // este toca mirar lo
             $table->string('percent');
+            $table->boolean('state');
             $table->timestamps();
         });
     }

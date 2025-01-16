@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CompanyRequest;
-use App\Http\Requests\DepartmentRequest;
 use App\Message\CompanyMessage;
 use App\Models\Company;
-use App\Models\Departments;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use App\Models\User;
 
 class CompanyController extends Controller
 {
@@ -42,6 +42,8 @@ class CompanyController extends Controller
      */
     public function show($id)
     {
+        Session::put('nameCompany','creativos');
+        Session::put('name','nombre');
         try{
             $company = Company::findOrFail($id);
             return response()->json([
@@ -81,24 +83,27 @@ class CompanyController extends Controller
             $dataCompany = $companyRequest->except(['_method','token']);
             $company = Company::findOrFail($id) ;
             $company->update($dataCompany);
-            return response()->json([
+            return back()->with('message', CompanyMessage::successUpdateCompany);
+            /*return response()->json([
                                     'status' => 'success',
                                     'message' => CompanyMessage::successUpdateCompany,
                                     'company' => $company
-            ], 201);
+            ], 201);*/
         }catch(ModelNotFoundException $eModel){
-            return response()->json([
+            return back()->with('message', CompanyMessage::failUpdateCompanyModel);
+           /* return response()->json([
                                     'status' => 'fail',
                                     'message' => CompanyMessage::failUpdateCompanyModel,
                                     'error' => $eModel->getMessage()
-            ], 404);
+            ], 404);*/
 
         }catch(\Exception $eException){
-            return response()->json([
+            return back()->with('message',CompanyMessage::failUpdateCompanyException );
+           /* return response()->json([
                                     'status' => 'fail',
                                     'message' => CompanyMessage::failUpdateCompanyException,
                                     'error' => $eException->getMessage()
-            ], 500);
+            ], 500);*/
         }
     }
 
@@ -109,6 +114,9 @@ class CompanyController extends Controller
     {
         try{
             $company = Company::findOrFail($id);
+            $Customer = User::findOrFail($company['userId']);
+            $Customer->delete();
+            $company->delete();
             return response()->json([
                                     'status' => 'success',
                                     'message' => CompanyMessage::successDeleteCompany,

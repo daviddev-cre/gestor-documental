@@ -7,11 +7,11 @@ $alertas = [
     ['id' => 3, 'contenido' => 'Se ha detectado un problema en el módulo 2.', 'estado' => 'activo']
 ];
 
-$usuario = [
+/*$usuario = [
     ['id' => 1, 'contenido' => 'Este es un mensaje de alerta común que podría estar relacionado con alguno de los módulos en cuestión, por favor verificar y recuperar.', 'estado' => 'activo'],
     ['id' => 2, 'contenido' => 'Recuerda actualizar la información de recursos humanos de tu clinica pueden estar desactualizados', 'estado' => 'inactivo'],
     ['id' => 3, 'contenido' => 'Se ha detectado un problema en el módulo 2.', 'estado' => 'activo']
-];
+];*/
 
 $modulos = [
     [   
@@ -49,6 +49,8 @@ $modulos = [
     
 ];
 
+//dd(session()-> all());
+
 ?>
 
 <!DOCTYPE html>
@@ -61,9 +63,6 @@ $modulos = [
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet">
-    {!! RecaptchaV3::initJs() !!}
-    @vite(['resources/css/app.css', 'resources/css/home.css','resources/js/app.js'])
-
 
     <style>
         #slideDiv { min-width: 450px; max-width: 30%; height: 100vh; background-color: #ffffff; position: fixed; top: 0; right: -600px; border-radius: 14px 0 0 14px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); transition: right 0.5s ease; } 
@@ -71,17 +70,14 @@ $modulos = [
         #menuflotante { width: 80%; aspect-ratio: 5/1; margin-left: 10%; background-image: url('/img/fondomenu.svg'); background-size: cover; display: flex; flex-direction: row; animation: floating 2s ease-in-out infinite; } 
         @keyframes growWidth { from { width: 0; } to { width: 60%; } } #porcentajetotal div { animation: growWidth 3s ease forwards; }
     </style>
-
-
-
 </head>
 <body style="width: 100vw; height: 100vh; margin: 0; padding: 0; background-color: #F2F3F6; display: flex; align-items: center; justify-content: center;">
-        
+    
     <div class="containerHome" style="width: 95vw; height: 90vh; display: flex; flex-direction: row; background-color: #FBFBFB; border-radius: 15px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);">
         
         <div id="logindiv" style="width: 25%; height: 100%; margin-left: 3%; display: flex;  flex-direction: column;">
            
-          <img src="/img/logo.svg " alt="" style="width:50%; margin-left:20%; margin-top:60px;">
+          <img onclick="showAlert('¡Este es un mensaje de alerta!')" src="/img/logo.svg " alt="" style="width:50%; margin-left:20%; margin-top:60px;">
 
           <div id="datoscliente" style="width:100%; height:8%; display:flex; flex-direction:row; margin-top:30px;">
 
@@ -100,12 +96,7 @@ $modulos = [
           <div id="barraporcentajeglobal" style="margin-top:3%;">
                 <div style="width:100%; height:10px; background-color:#EFEFEF; border-radius:14px;"><div id="porcentajetotaltotal" style="width:0%; height:100%; background-color:#47A1A8;border-radius:14px;"></div></div>
           </div>
-
           <div id="contenidovariable" style="width:100%; height:55%;">
-
-
-
-          
                 <div id="modulo1" style="display:none; justify-content:center; margin-top:5%; padding:20px;">
                     <div style="display: grid; grid-template-columns: repeat(5, 1fr); grid-gap: 3%; max-width:350px;">
                         <?php foreach ($modulos as $modulo): ?>
@@ -116,7 +107,6 @@ $modulos = [
                         <?php endforeach; ?>
                     </div>
                 </div>
-
                 <div id="modulo2" style="display:none; flex-direction:column; align-items:center; width:100%; height:90%; margin-top:5%; overflow-y: scroll; overflow-x: hidden; padding:3%;">
                     <?php foreach ($alertas as $alerta): ?>
                         <div style="width:100%; height:25%; background-color:#ffffff; border-radius:12px; box-shadow: 0 4px 8px rgba(40, 40, 40, 0.03); cursor:pointer; display:flex; flex-direction:row; padding:5%; margin-top:5px; position:relative;">
@@ -185,124 +175,154 @@ $modulos = [
            
           <div style="width:100%; height:100%;display:flex; align-items:center; justify-content:center;">
             <div style="width:95%; height:90%; background-color:#F2F3F6; border-radius:15px; padding:3%;">
-                        
-
-                        <div id="mostrarmodulos" style="display:none; width:100%; height:100%;">
-                            <h2 id="Mtitulo" style="width:50%; margin:0; padding:0; color:#47A1A8; font-size:2.1vw; font-weight:800; ">Habilitación en salud, <br>sin complicaciones</h2>
-                            <p  id="Mdescripcion" style="font-size:.7vw;  padding:0;">Documentación y habilitación en salud sin complicaciones</p>
-                            <div id="barraporcentajeglobal" style="margin-top:3%; width:100%; display:flex; align-items:center; justify:content;">
-                                <p id="Mporcentaje" style="font-size:1.5vw;">0%</p>
-                                <div style="width:50%; height:10px;  margin-left:2%;background-color:#ffffff; border-radius:14px;"><div id="Mporcentajebarra" style="width:00%; height:100%; background-color:#47A1A8;border-radius:14px;"></div></div>
-                            </div>
-                            <p style="font-size:1vw; margin:0; padding:0;">Requerimientos completados</p>
-
-                            <div id="documentosContainer" style="width:100%; height:65%; overflow-y: auto; overflow-x: hidden; padding:3%;">
-                                <?php foreach ($modulos as $modulo): ?>
-                                    <div class="modulo" data-id="<?= $modulo['id']; ?>" style="display:none;">
-                                        <?php foreach ($modulo['documentos'] as $documento): ?>
-                                            <div style="width:100%; aspect-ratio:20/1; background-color:#ffffff; border-radius:12px; box-shadow: 0 4px 8px rgba(40, 40, 40, 0.03); cursor:pointer; display:flex; flex-direction:row; padding:1.5%; margin-top:5px;">
-                                                <div onclick="urldocumento(<?= $documento->id; ?>, '<?= addslashes($documento->url); ?>')" style="height:20px; aspect-ratio: 1 / 1; background-color:<?= ($documento->estado === 2) ? '#47A1A8' : ($documento->estado === 0 ? '#FF5055' : ($documento->estado === 1 ? '#FFC300' : '#ffffff')); ?>; border-radius:100%;"></div>
-                                                <p   onclick="urldocumento(<?= $documento->id; ?>, '<?= addslashes($documento->url); ?>')" style="font-size:1vw; line-height:1.2; width: calc(90% - 20px); margin-left:5%;"><?= $documento->nombre; ?></p>
-                                                <img onclick="Mdescargardocumento(<?= $documento->id; ?>)" src="/img/iconodescargar.svg" alt="descargar" style="width:30px;">
-                                                <img onclick="Mborrardocumento(<?= $documento->id; ?>)" src="/img/iconoborrar.svg" alt="eliminar" style="width:30px; margin-left:1%;">
-                                            </div>
-                                        <?php endforeach; ?>
+                <div id="mostrarmodulos" style="display:none; width:100%; height:100%;">
+                    <h2 id="Mtitulo" style="width:50%; margin:0; padding:0; color:#47A1A8; font-size:2.1vw; font-weight:800; ">Habilitación en salud, <br>sin complicaciones</h2>
+                    <p  id="Mdescripcion" style="font-size:.7vw;  padding:0;">Documentación y habilitación en salud sin complicaciones</p>
+                    <div id="barraporcentajeglobal" style="margin-top:3%; width:100%; display:flex; align-items:center; justify:content;">
+                        <p id="Mporcentaje" style="font-size:1.5vw;">0%</p>
+                        <div style="width:50%; height:10px;  margin-left:2%;background-color:#ffffff; border-radius:14px;"><div id="Mporcentajebarra" style="width:00%; height:100%; background-color:#47A1A8;border-radius:14px;"></div></div>
+                    </div>
+                    <p style="font-size:1vw; margin:0; padding:0;">Requerimientos completados</p>
+                    <div id="documentosContainer" style="width:100%; height:65%; overflow-y: auto; overflow-x: hidden; padding:3%;">
+                        <?php foreach ($modulos as $modulo): ?>
+                            <div class="modulo" data-id="<?= $modulo['id']; ?>" style="display:none;">
+                                <?php foreach ($modulo['documentos'] as $documento): ?>
+                                    <div style="width:100%; aspect-ratio:20/1; background-color:#ffffff; border-radius:12px; box-shadow: 0 4px 8px rgba(40, 40, 40, 0.03); cursor:pointer; display:flex; flex-direction:row; padding:1.5%; margin-top:5px;">
+                                        <div onclick="urldocumento(<?= $documento->id; ?>, '<?= addslashes($documento->url); ?>')" style="height:20px; aspect-ratio: 1 / 1; background-color:<?= ($documento->estado === 2) ? '#47A1A8' : ($documento->estado === 0 ? '#FF5055' : ($documento->estado === 1 ? '#FFC300' : '#ffffff')); ?>; border-radius:100%;"></div>
+                                        <p   onclick="urldocumento(<?= $documento->id; ?>, '<?= addslashes($documento->url); ?>')" style="font-size:1vw; line-height:1.2; width: calc(90% - 20px); margin-left:5%;"><?= $documento->nombre; ?></p>
+                                        <img onclick="Mdescargardocumento(<?= $documento->id; ?>)" src="/img/iconodescargar.svg" alt="descargar" style="width:30px;">
+                                        <img onclick="Mborrardocumento(<?= $documento->id; ?>)" src="/img/iconoborrar.svg" alt="eliminar" style="width:30px; margin-left:1%;">
                                     </div>
                                 <?php endforeach; ?>
                             </div>
-                        </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
             </div>
           </div>
-           
-
         </div>
-
         <div id="slideDiv" style="padding:2%; ">
             <div style="width:100%; height:100%;overflow-y: auto; overflow-x: hidden; padding:3%; padding-top:0; padding-bottom:0;">
                 <p style="margin:0; padding:0; color:#47A1A8; font-size:1.3vw; font-weight:700;">Informacion del usuario</p>
                 <p style="font-size:.7vw;  padding:0;">Por favor, completa estos datos para que los revisores tengan toda la información necesaria y puedan verificar correctamente la documentación de tu empresa.</p>
-
-                <div style="margin-bottom: 16px; position: relative;">
-                    <input type="text" name="empresa" placeholder="Nombre de la empresa o razón social" style="width: 100%; padding: 6px 40px; border: 3px solid #F6F8FB; border-radius: 8px; font-size: 14px; background-color: #FAFBFE; color: #333;">
-                    <span style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #ccc;">
-                        <img src="https://img.icons8.com/material-outlined/24/cccccc/building.png" alt="Company Icon">
-                    </span>
-                </div>
-
-                <div style="width:100%; display:flex; flex-direction:row; justify-content:space-between;">
+                
+                <form method="post" action="{{route('compañias.update', $Company->id)}}">
+                    @csrf
+                    @method("PUT")
+                    <input type="hidden" name="userId" value="{{$Company->userId}}">
+                    <input type="hidden" name="percent" value="{{$Company->percent}}">
+                    <input type="hidden" name="typePerson_foreigner" value="{{$Company->typePerson_foreigner}}">
+                    <input type="hidden" name="sector_foreigner" value="{{$Company->sector_foreigner}}">
                     <div style="margin-bottom: 16px; position: relative; width:49%;">
-                        <input type="number" name="identificacion" placeholder="Nit" style="width: 100%; padding: 6px 40px; border: 3px solid #F6F8FB; border-radius: 8px; font-size: 14px; background-color: #FAFBFE; color: #333;">
+                        <select type="text" name="department_foreigner" value="{{$Departments[$Company->department_foreigner]['departmentName']}}" placeholder="Ciudad" style="width: calc(99% - 40px); padding: 6px; padding-left:40px; border: 3px solid #F6F8FB; border-radius: 8px; font-size: 14px; background-color: #FAFBFE; color: #333;">
+                            <option value="" disabled {{$Company->typology_foreigner ? 'selected' : '' }}>Departamento</option>
+                            @foreach ($Departments as $Department)
+                                <option value="{{$Department->id}}" {{ $Department->id == $Company->department_foreigner ? 'selected' : '' }}>
+                                    {{ $Department['departmentName'] }}
+                                </option>
+                            @endforeach
+                        </select>
                         <span style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #ccc;">
-                            <img src="https://img.icons8.com/material-outlined/24/cccccc/identification-documents.png" alt="Identification Icon">
+                            <img src="https://img.icons8.com/material-outlined/24/cccccc/building.png" alt="Company Icon">
                         </span>
                     </div>
-                    <div style="margin-bottom: 16px; position: relative; width:49%;">
-                        <input type="number" name="empleados" placeholder="No. Empleados" style="width: 100%; padding: 6px 40px; border: 3px solid #F6F8FB; border-radius: 8px; font-size: 14px; background-color: #FAFBFE; color: #333;">
+                    <div style="margin-bottom: 16px; position: relative;">
+                        <input type="text" name="nameCompany" value = "{{isset($Company->nameCompany) ? $Company->nameCompany : '' }}" placeholder="Nombre de la empresa o razón social" style="width: 100%; padding: 6px 40px; border: 3px solid #F6F8FB; border-radius: 8px; font-size: 14px; background-color: #FAFBFE; color: #333;">
                         <span style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #ccc;">
-                            <img src="https://img.icons8.com/material-outlined/24/cccccc/user.png" alt="User Icon">
+                            <img src="https://img.icons8.com/material-outlined/24/cccccc/building.png" alt="Company Icon">
                         </span>
                     </div>
-                </div>
-
-                <div style="margin-bottom: 16px; position: relative;">
-                    <select name="empresa_tipo" style="width: 100%; padding: 6px 40px; border: 3px solid #F6F8FB; border-radius: 8px; font-size: 14px; background-color: #FAFBFE; color: #333; appearance: none;">
-                        <option value="" disabled selected>Tipo de empresa</option>
-                        <option value="estetica">Estética</option>
-                        <option value="centro_belleza">Centro de belleza</option>
-                        <option value="clinica">Clínica estética</option>
-                        <option value="clinica">Spa</option>
-                    </select>
-                    <span style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #ccc;">
-                        <img src="https://img.icons8.com/material-outlined/24/cccccc/stethoscope.png" alt="Company Type Icon">
-                    </span>
-                </div>
-
-                <div style="margin-bottom: 16px; position: relative;">
-                    <input type="text" name="location" placeholder="Dirección de la sede principal" style="width: 100%; padding: 6px 40px; border: 3px solid #F6F8FB; border-radius: 8px; font-size: 14px; background-color: #FAFBFE; color: #333;">
-                    <span style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #ccc;">
-                        <img src="https://img.icons8.com/material-outlined/24/cccccc/marker.png" alt="Location Icon">
-                    </span>
-                </div>
-
-                <div style="width:100%; display:flex; flex-direction:row; justify-content:space-between;">
-                    <div style="margin-bottom: 16px; position: relative; width:49%;">
-                        <input type="number" name="Teléfono" placeholder="Teléfono" style="width: 100%; padding: 6px 40px; border: 3px solid #F6F8FB; border-radius: 8px; font-size: 14px; background-color: #FAFBFE; color: #333;">
+                    <div style="margin-bottom: 16px; position: relative;">
+                        <input type="text" name="contactEmail" value="{{$Company->contactEmail ? $Company->contactEmail : ''}}" placeholder="Correo de la empresa" style="width: calc(99% - 40px); padding: 6px; padding-left:40px; border: 3px solid #F6F8FB; border-radius: 8px; font-size: 14px; background-color: #FAFBFE; color: #333;">
                         <span style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #ccc;">
-                            <img src="https://img.icons8.com/material-outlined/24/cccccc/phone.png" alt="Phone Icon">
+                            <img src="https://img.icons8.com/material-outlined/24/cccccc/building.png" alt="Company Icon">
                         </span>
                     </div>
-                    <div style="margin-bottom: 16px; position: relative; width:49%;">
-                        <input type="text" name="WhatsApp" placeholder="WhatsApp" style="width: 100%; padding: 6px 40px; border: 3px solid #F6F8FB; border-radius: 8px; font-size: 14px; background-color: #FAFBFE; color: #333;">
+                    <div style="width:100%; display:flex; flex-direction:row; justify-content:space-between;">
+                        <div style="margin-bottom: 16px; position: relative; width:49%;">
+                            <input type="text" name="nit" value="{{isset($Company->nit) ? $Company->nit : ''}}" placeholder="Nit" style="width: 100%; padding: 6px 40px; border: 3px solid #F6F8FB; border-radius: 8px; font-size: 14px; background-color: #FAFBFE; color: #333;">
+                            <span style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #ccc;">
+                                <img src="https://img.icons8.com/material-outlined/24/cccccc/identification-documents.png" alt="Identification Icon">
+                            </span>
+                        </div>
+                        <div style="margin-bottom: 16px; position: relative; width:49%;">
+                            <input type="text" name="numberEmployees" value="{{isset($Company->numberEmployees) ? $Company->numberEmployees : ''}}" placeholder="No. Empleados" style="width: 100%; padding: 6px 40px; border: 3px solid #F6F8FB; border-radius: 8px; font-size: 14px; background-color: #FAFBFE; color: #333;">
+                            <span style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #ccc;">
+                                <img src="https://img.icons8.com/material-outlined/24/cccccc/user.png" alt="User Icon">
+                            </span>
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 16px; position: relative;">
+                        <select  name="typology_foreigner" style="padding: 6px; padding-left:40px; width:101.5%; border: 3px solid #F6F8FB; border-radius: 8px; font-size: 14px; background-color: #FAFBFE; color: #333; appearance: none;">
+                            <option value=""  disabled {{ $Company->typology_foreigner ? 'selected' : '' }}>Tipo de empresa</option>
+                            @foreach ($Typologies as $Typology)
+                                <option value="{{ $Typology['id'] }}" {{ $Typology['id'] == $Company->typology_foreigner ? 'selected' : '' }}>
+                                    {{ $Typology->typologyName }}
+                                </option>
+                            @endforeach
+                        </select>                    
                         <span style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #ccc;">
-                            <img src="https://img.icons8.com/material-outlined/24/cccccc/whatsapp.png" alt="WhatsApp Icon">
+                            <img src="https://img.icons8.com/material-outlined/24/cccccc/stethoscope.png" alt="Company Type Icon">
                         </span>
                     </div>
-                </div>
 
-                <div style="margin-bottom: 16px; position: relative;">
-                    <input type="text" name="representante" placeholder="Representante legal" style="width: 100%; padding: 6px 40px; border: 3px solid #F6F8FB; border-radius: 8px; font-size: 14px; background-color: #FAFBFE; color: #333;">
-                    <span style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #ccc;">
-                        <img src="https://img.icons8.com/material-outlined/24/cccccc/businessman.png" alt="Representative Icon">
-                    </span>
-                </div>
-
-                <div style="margin-bottom: 16px; position: relative;">
-                    <input type="text" name="web" placeholder="Sitio web" style="width: 100%; padding: 6px 40px; border: 3px solid #F6F8FB; border-radius: 8px; font-size: 14px; background-color: #FAFBFE; color: #333;">
-                    <span style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #ccc;">
-                        <img src="https://img.icons8.com/material-outlined/24/cccccc/internet.png" alt="Website Icon">
-                    </span>
-                </div>
-
-                <div style="margin-bottom: 10px; position: relative;">
-                    <textarea name="descripcion" placeholder="Descripcion de la empresa" rows="3" style="width: 100%; padding: 6px 6px; border: 3px solid #F6F8FB; border-radius: 8px; font-size: 14px; background-color: #FAFBFE; color: #333; resize: none;"></textarea>
-                </div>
-
-                <div style="width:100%; display:flex; flex-direction:row; justify-content:space-between;">
-                    <div style="margin-bottom: 16px; position: relative; width:50%;"> </div>
-                    <div style="margin-bottom: 16px; position: relative; width:50%;">
-                        <button onclick="informaciongeneral()" style="background-color:#47A1A8; color:#ffffff; border-radius:10px; border:none; width:100%;height:35px;font-weight:600;">Guardar</button>
+                    <div style="margin-bottom: 16px; position: relative;">
+                        <input type="text" name="address" value="{{isset($Company->address) ? $Company->address : '' }}" placeholder="Dirección de la sede principal" style="width: 100%; padding: 6px 40px; border: 3px solid #F6F8FB; border-radius: 8px; font-size: 14px; background-color: #FAFBFE; color: #333;">
+                        <span style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #ccc;">
+                            <img src="https://img.icons8.com/material-outlined/24/cccccc/marker.png" alt="Location Icon">
+                        </span>
                     </div>
-                </div>
+
+                    <div style="width:100%; display:flex; flex-direction:row; justify-content:space-between;">
+                        <div style="margin-bottom: 16px; position: relative; width:49%;">
+                            <input type="number" name="cellphone" value="{{isset($Company->cellphone) ? $Company->cellphone : ''}}" placeholder="Teléfono" style="width: 100%; padding: 6px 40px; border: 3px solid #F6F8FB; border-radius: 8px; font-size: 14px; background-color: #FAFBFE; color: #333;">
+                            <span style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #ccc;">
+                                <img src="https://img.icons8.com/material-outlined/24/cccccc/phone.png" alt="Phone Icon">
+                            </span>
+                        </div>
+                        <div style="margin-bottom: 16px; position: relative; width:49%;">
+                            <input type="text" name="whatsapp" value="{{isset($Company->whatsapp) ? $Company->whatsapp : ''}}" placeholder="WhatsApp" style="width: 100%; padding: 6px 40px; border: 3px solid #F6F8FB; border-radius: 8px; font-size: 14px; background-color: #FAFBFE; color: #333;">
+                            <span style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #ccc;">
+                                <img src="https://img.icons8.com/material-outlined/24/cccccc/whatsapp.png" alt="WhatsApp Icon">
+                            </span>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 16px; position: relative;">
+                        <input type="text" name="legalRepresentative" value="{{isset($Company->legalRepresentative) ? $Company->legalRepresentative : '' }}" placeholder="Representante legal" style="width: 100%; padding: 6px 40px; border: 3px solid #F6F8FB; border-radius: 8px; font-size: 14px; background-color: #FAFBFE; color: #333;">
+                        <span style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #ccc;">
+                            <img src="https://img.icons8.com/material-outlined/24/cccccc/businessman.png" alt="Representative Icon">
+                        </span>
+                    </div>
+
+                    <div style="margin-bottom: 16px; position: relative;">
+                        <input type="text" name="webSite" value="{{isset($Company->webSite) ? $Company->webSite : '' }}" placeholder="Sitio web" style="width: 100%; padding: 6px 40px; border: 3px solid #F6F8FB; border-radius: 8px; font-size: 14px; background-color: #FAFBFE; color: #333;">
+                        <span style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #ccc;">
+                            <img src="https://img.icons8.com/material-outlined/24/cccccc/internet.png" alt="Website Icon">
+                        </span>
+                    </div>
+                    
+                    <div style="margin-bottom: 10px; position: relative;">
+                        <textarea name="companyDescription" placeholder="Descripcion de la empresa" rows="3" style="width: 100%; padding: 6px 6px; border: 3px solid #F6F8FB; border-radius: 8px; font-size: 14px; background-color: #FAFBFE; color: #333; resize: none;">{{$Company->companyDescription}}</textarea>
+                    </div>
+                
+                    <div style="width:100%; display:flex; flex-direction:row; justify-content:space-between;">
+                        <div style="margin-bottom: 16px; position: relative; width:50%;"> </div>
+                        <div style="margin-bottom: 16px; position: relative; width:50%;">
+                        <button onclick="submit()" style="background-color:#47A1A8; color:#ffffff; border-radius:10px; border:none; width:100%;height:35px;font-weight:600;">Guardar</button>
+                        </div>
+                    </div>
+                </form>
+                @if ($errors->any())
+                    <div>
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif  
+                
             </div>
         </div>
 
@@ -361,9 +381,8 @@ $modulos = [
                                             
             
             </div>
-        </div>                                       
-
-
+        </div>   
+        
     <script>
         let moduloactual = 0;
         const modulos = <?php echo json_encode($modulos); ?>;
@@ -609,15 +628,12 @@ $modulos = [
                     
                 }
             }
-            
-
 
             
-
-
 
     </script>
 
+    
 
 </body>
 </html>

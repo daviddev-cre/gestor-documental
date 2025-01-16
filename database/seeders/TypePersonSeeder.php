@@ -13,15 +13,15 @@ class TypePersonSeeder extends Seeder
      */
     public function run(): void
     {
-        TypePerson::created([
+        TypePerson::create([
             'typePersonName' => 'No definido'
         ]);
 
-        TypePerson::created([
+        TypePerson::create([
              'typePersonName' => 'Natural'
         ]);
 
-        TypePerson::created([
+        TypePerson::create([
             'typePersonName' => 'Jurídica'
        ]);
     }

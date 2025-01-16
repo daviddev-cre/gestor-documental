@@ -190,6 +190,7 @@
         function cerrarmodal(){
             const modal = document.getElementById('modal');
             modal.style.display = 'none';
+            window.location.href = "{{ url('/') }}";
         }
     </script>
 

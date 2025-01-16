@@ -28,8 +28,8 @@ class Company extends Model
         'typePerson_foreigner',
         'sector_foreigner',
         'department_foreigner',
-        'review_foreigner',
-        'percent'
+        'percent',
+        'state'
     ];
 
     public function user() : BelongsTo{

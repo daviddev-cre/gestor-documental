@@ -11,7 +11,7 @@ class CompanyRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,7 @@ class CompanyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'userId' => ['required', 'bigInteger'],
+            'userId' => ['required', 'integer'],
             'nameCompany' => ['required', 'string'],
             'nit' => ['required', 'string'],
             'numberEmployees' => ['required', 'integer'],
@@ -31,14 +31,13 @@ class CompanyRequest extends FormRequest
             'whatsapp' => ['required', 'integer'],
             'legalRepresentative' => ['required', 'string'],
             'webSite' => ['required', 'string'],
-            'typology_foreigner' => ['required', 'bigInteger'],
+            'typology_foreigner' => ['required', 'integer'],
             'companyDescription' => ['required', 'string'],
             'contactEmail' => ['required', 'string'],
-            'typePerson_foreigner' => ['required', 'bigInteger'],
-            'sector_foreigner' => ['required', 'bigInteger'],
-            'department_foreigner' => ['required', 'bigInteger'],
-            'review_foreigner' => ['required', 'bigInteger'],
-            'percent' => ['required', 'double']
+            'typePerson_foreigner' => ['required', 'integer'],
+            'sector_foreigner' => ['required', 'integer'],
+            'department_foreigner' => ['required', 'integer'],
+            'percent' => ['required', 'integer']
         ];
     }
 }

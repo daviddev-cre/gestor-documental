@@ -16,7 +16,7 @@ $modulosseleccionar = [
     ['id' => 8, 'nombre' => 'establecimiento e infraetructura', 'estado' => 1, 'porcentajecompletado'=> 40, 'tipologia' => 'Clinica estetica', 'color' => '#ffca55', 'icono' => 'img/moduloicono8.png'],
     ['id' => 9, 'nombre' => 'Tratamiento de medicamentos', 'estado' => 0, 'porcentajecompletado'=> 60, 'tipologia' => 'Spa', 'color' => '#7a8ffa', 'icono' => 'img/moduloicono3.png'],
    
-];
+]; 
 
 $informaciondeltipotipoempresa = [
     'id'                      => 1,
@@ -52,8 +52,6 @@ $informaciondeltipotipoempresa = [
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>tipotipoempresa</title>
-    {!! RecaptchaV3::initJs() !!}
-    @vite(['resources/css/app.css', 'resources/css/home.css', 'resources/js/app.js'])
     <style>
         #slideDivtipotipoempresa { width: 500px; height: 100vh; background-color: #ffffff; position: fixed; top: 0; right: -600px; border-radius: 14px 0 0 14px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); transition: right 0.5s ease; } 
         #slideDivtipotipoempresa.active { right: 0; } @keyframes floating { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } } 
@@ -62,7 +60,7 @@ $informaciondeltipotipoempresa = [
         #slideDivtipotipoempresacdclientes { width: 500px; height: 100vh; background-color: #ffffff; position: fixed; top: 0; right: -600px; border-radius: 14px 0 0 14px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); transition: right 0.5s ease; } 
         #slideDivtipotipoempresacdclientes.active { right: 0; } @keyframes floating { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } } 
     </style>
-</head>
+</head> 
 <body style="overflow:hidden;">
     
     <div style="width:100%; height:100%; box-sizing: border-box; padding-left:3%;">
@@ -85,7 +83,7 @@ $informaciondeltipotipoempresa = [
             <div onclick="" style="cursor:pointer; width:13%; height:100%; background-color:#ffffff; border-radius:10px; display:flex; align-items:center; justify-content:center; border: 2px solid #47A1A8;">
                 <p style="color:#47A1A8; font-size:.9vw;">Exportar</p>
             </div>
-            <div onclick="mostrarmodalsumarusuario()" style="cursor:pointer; width:13%; height:100%; background-color:#47A1A8; border-radius:10px; display:flex; align-items:center; justify-content:center; border: 2px solid #47A1A8;">
+            <div onclick="mostrarmodalsumartipousuario()" style="cursor:pointer; width:13%; height:100%; background-color:#47A1A8; border-radius:10px; display:flex; align-items:center; justify-content:center; border: 2px solid #47A1A8;">
                 <p style="color:#ffffff; font-size:.9vw;">+ Nuevo Tipo</p>
             </div>
         </div>
@@ -95,20 +93,14 @@ $informaciondeltipotipoempresa = [
         
             <div id="listatipotipoempresa" style="width:50%; height:100%; margin-top:20px; overflow-y: auto; padding:1%; box-sizing:border-box;">
                 <?php foreach ($tiposdetipoempresa as $tiposdetipoempresas): ?>
-                    <div id="tipoempresa<?php echo $tiposdetipoempresas['id']; ?>" class="tipoempresasc" data-estado="<?php echo $tiposdetipoempresas['estado']; ?>" 
+                    <div id="tipoempresa<?php echo $tiposdetipoempresas['id']; ?>" class="tipoempresasc"  
                         style="width:100%; aspect-ratio:25/1; margin-bottom:.6%; background-color:#F2F3F6; border-radius:.5vw; display:flex; flex-direction:row; align-items:center; cursor:pointer;" 
                         onclick="seleccionartipoempresa(<?php echo $tiposdetipoempresas['id']; ?>)">
-                        <p id="nombretipoempresa<?php echo $tiposdetipoempresas['id']; ?>" class="nombretipoempresa" style="margin-left:2%; width:80%; font-size:.9vw;"><?php echo $tiposdetipoempresas['nombre']; ?></p>
+                        <p id="nombretipoempresa<?php echo $tiposdetipoempresas['id']; ?>" class="nombretipoempresa" style="margin-left:2%; width:87%; font-size:.9vw;"><?php echo $tiposdetipoempresas['nombre']; ?></p>
                         <div style="width:10%; height:100%; display:flex; flex-direction:row; justify-content: flex-end; align-items:center;">
                             <img id="eliminartipoempresa<?php echo $tiposdetipoempresas['id']; ?>" class="eliminartipoempresa" onclick="eliminartipotipoempresa(<?php echo $tiposdetipoempresas['id']; ?>)" style=" height:80%; margin-right:8%; cursor:pointer;" src="https://img.icons8.com/material-outlined/24/47A1A8/delete.png" alt="Delete Icon">
                             <img id="editartipoempresa<?php echo $tiposdetipoempresas['id']; ?>" class="editartipoempresa" onclick="editartipotipoempresa(<?php echo $tiposdetipoempresas['id']; ?>)" style="height:80%; margin-right:8%; cursor:pointer;" src="https://img.icons8.com/material-outlined/24/47A1A8/edit.png" alt="Edit Icon">
                         </div>
-                        <label class="switchtipotipoempresa" style="margin-right:2%; position: relative; display: inline-block; height: 100%; aspect-ratio:1.8/1;">
-                            <input type="checkbox" id="switchtipotipoempresa<?php echo $tiposdetipoempresas['id']; ?>" onchange="toggleswitchtipotipoempresaclientes(<?php echo $tiposdetipoempresas['id']; ?>)" style="opacity: 0; width: 0;" <?php echo ($tiposdetipoempresas['estado'] == 1) ? 'checked' : ''; ?>>
-                            <span class="slideres <?php echo ($tiposdetipoempresas['estado'] == 1) ? 'on' : 'off'; ?>" style="display:flex; align-items:center; position: absolute; cursor: pointer; top: 10%; left: 10%; right: 0; bottom: 0; transition: 0.4s; border-radius:100vw;">
-                                <span style="position: absolute; content: ''; height: 75%; aspect-ratio:1/1; border-radius: 50%; left: 8%; background-color: white; transition: 0.4s;"></span>
-                            </span>
-                        </label>
                     </div>
                 <?php endforeach; ?>
             </div>
@@ -144,14 +136,12 @@ $informaciondeltipotipoempresa = [
         </div>
     </div>
 
-    <div id="modalnuevotipotipoempresa" style="display:none; position:relative; width:150vw; height:150vh; background-color:rgba(50, 50, 50, 0.8); position:fixed; padding:0; margin:0; z-index: 99999; margin-left:-18.4%; align-items:center; justify-content:center;">
+    <div id="modalnuevotipotipodeempresa" style="display:none; position:relative; width:150vw; height:150vh; background-color:rgba(50, 50, 50, 0.8); position:fixed; padding:0; margin:0; z-index: 99999; margin-left:-18.4%; align-items:center; justify-content:center;">
         <div style="position:relative; Width:50vw;height:50vh;;background-color:#ffffff; margin:0;padding:0;border-radius:12px; display:flex; flex-direction:column; align-items:center; justify-content:center;">
-            <img src="img/logo.svg" alt="logo" style="width:30%;">
-            <p style="width:70%;text-align:center; font-size:.9vw;">No es posible agregar a un nuevo usuario de forma directa, ya que es necesario que realice su registro. Sin embargo, puedes utilizar este formulario para enviar una invitación por correo electrónico, permitiendo que la persona se una a la comunidad.</p>
-            <input id="nombreinvitacion" type="text" autocomplete="off" name="name"placeholder="Nombre" style=" text-align:center;width:50%;height:30px;border-radius:12px;border:2px solid #47A1A8;">
-            <input id="emailinvitacion" type="email" autocomplete="off" placeholder="Email" style=" text-align:center;width:50%;height:30px;margin-top:10px;border-radius:12px;border:2px solid #47A1A8;">
-            <div onclick="" style="background-color:#47A1A8; margin-top:10px; width:200px; height:35px; border-radius:9px; display:flex; align-items:center; justify-content:center; cursor:pointer;"><p style="color:#ffffff; width:100%;height:50%;text-align:center;padding:0;">Enviar invitación</p></div>
-            <p onclick="ocultarmodalsumarusuario()" style="color:#47A1A8; cursor:pointer;">Cerrar</p>
+            <img src="img/logo.svg" alt="logo" style="width:30%; margin-bottom:10px;">
+            <input id="nombredeltipodeempresa" type="text" autocomplete="off" name="name"placeholder="Nombre para el tipo de empresa" style=" text-align:center;width:50%;height:30px;border-radius:12px;border:2px solid #47A1A8;">
+            <div onclick="creartipoempresa()" style="background-color:#47A1A8; margin-top:10px; width:200px; height:35px; border-radius:9px; display:flex; align-items:center; justify-content:center; cursor:pointer;"><p style="color:#ffffff; width:100%;height:50%;text-align:center;padding:0;">Crear tipo de empresa</p></div>
+            <p onclick="ocultarmodalsumartipousuario()" style="color:#47A1A8; cursor:pointer;">Cerrar</p>
         </div>
     </div>
     <div id="modaleliminartipotipoempresa" style="display:none; position:relative; width:150vw; height:150vh; background-color:rgba(50, 50, 50, 0.8); position:fixed; padding:0; margin:0; z-index: 99999; margin-left:-18.4%; align-items:center; justify-content:center;">
@@ -309,11 +299,11 @@ $informaciondeltipotipoempresa = [
         }
 
 
-        function mostrarmodalsumarusuario(){
-            document.getElementById('modalnuevotipotipoempresa').style.display = "flex";
+        function mostrarmodalsumartipousuario(){
+            document.getElementById('modalnuevotipotipodeempresa').style.display = "flex";
         }
-        function ocultarmodalsumarusuario(){
-            document.getElementById('modalnuevotipotipoempresa').style.display = "none";
+        function ocultarmodalsumartipousuario(){
+            document.getElementById('modalnuevotipotipodeempresa').style.display = "none";
         }
         function eliminartipotipoempresa(id){
             usuarioaeliminar = id;
@@ -501,6 +491,110 @@ $informaciondeltipotipoempresa = [
                 }
             });
         }
+
+        function creartipoempresa() {
+            let nombredeltipodeempresa = document.getElementById('nombredeltipodeempresa').value;
+            if (nombredeltipodeempresa) {
+                const contenedor = document.getElementById('listatipotipoempresa');
+                const elementosExistentes = contenedor.getElementsByClassName('tipoempresasc');
+                let ultimoId = 0;
+                if (elementosExistentes.length > 0) {
+                    // Obtener el último id de los elementos existentes
+                    const ultimoElemento = elementosExistentes[elementosExistentes.length - 1];
+                    ultimoId = parseInt(ultimoElemento.id.replace('tipoempresa', ''), 10);
+                }
+                const nuevoId = ultimoId + 1;
+                agregarElementoLista(nuevoId, nombredeltipodeempresa);
+                document.getElementById('modalnuevotipotipodeempresa').style.display = "none";
+                showAlert("Nuevo tipo de empresa creado","success");
+            } else {
+                showAlert("El nombre del tipo de empresa no es valido","error");
+            }
+        }
+
+
+
+
+
+        function agregarElementoLista(id, nombre) {
+            // Seleccionar el contenedor principal
+            const contenedor = document.getElementById('listatipotipoempresa');
+
+            // Crear el nuevo div principal
+            const nuevoDiv = document.createElement('div');
+            nuevoDiv.id = `tipoempresa${id}`;
+            nuevoDiv.className = 'tipoempresasc';
+            nuevoDiv.style.cssText = `
+                width: 100%;
+                aspect-ratio: 25 / 1;
+                margin-bottom: 0.6%;
+                background-color: #F2F3F6;
+                border-radius: 0.5vw;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                cursor: pointer;
+            `;
+            nuevoDiv.setAttribute('onclick', `seleccionartipoempresa(${id})`);
+
+            // Crear el párrafo del nombre
+            const nombreP = document.createElement('p');
+            nombreP.id = `nombretipoempresa${id}`;
+            nombreP.className = 'nombretipoempresa';
+            nombreP.style.cssText = `
+                margin-left: 2%;
+                width: 87%;
+                font-size: 0.9vw;
+            `;
+            nombreP.textContent = nombre;
+
+            // Crear el contenedor de los iconos
+            const iconosDiv = document.createElement('div');
+            iconosDiv.style.cssText = `
+                width: 10%;
+                height: 100%;
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-end;
+                align-items: center;
+            `;
+
+            // Crear el icono de eliminar
+            const eliminarImg = document.createElement('img');
+            eliminarImg.id = `eliminartipoempresa${id}`;
+            eliminarImg.className = 'eliminartipoempresa';
+            eliminarImg.src = 'https://img.icons8.com/material-outlined/24/47A1A8/delete.png';
+            eliminarImg.alt = 'Delete Icon';
+            eliminarImg.style.cssText = `
+                height: 80%;
+                margin-right: 8%;
+                cursor: pointer;
+            `;
+            eliminarImg.setAttribute('onclick', `eliminartipotipoempresa(${id})`);
+
+            // Crear el icono de editar
+            const editarImg = document.createElement('img');
+            editarImg.id = `editartipoempresa${id}`;
+            editarImg.className = 'editartipoempresa';
+            editarImg.src = 'https://img.icons8.com/material-outlined/24/47A1A8/edit.png';
+            editarImg.alt = 'Edit Icon';
+            editarImg.style.cssText = `
+                height: 80%;
+                margin-right: 8%;
+                cursor: pointer;
+            `;
+            editarImg.setAttribute('onclick', `editartipotipoempresa(${id})`);
+
+            // Añadir los elementos al DOM
+            iconosDiv.appendChild(eliminarImg);
+            iconosDiv.appendChild(editarImg);
+            nuevoDiv.appendChild(nombreP);
+            nuevoDiv.appendChild(iconosDiv);
+            contenedor.appendChild(nuevoDiv);
+        }
+
+
+
 
 
         

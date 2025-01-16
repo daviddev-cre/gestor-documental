@@ -1,8 +1,6 @@
 <?php
 
 namespace Database\Seeders;
-
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -83,7 +81,6 @@ class RoleSeeder extends Seeder
             ];
     
             $permission_review = [
-                $permission_roles_create, $permission_roles_read,
                 $permission_administration_condition_create, $permission_administration_condition_read, $permission_administration_condition_update,
                 $permission_financial_condition_create, $permission_financial_condition_read, $permission_financial_condition_update,
                 $permission_humant_talent_create, $permission_humant_talent_read, $permission_humant_talent_update,

@@ -2,8 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Typologies;
-use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -22,6 +20,6 @@ class DatabaseSeeder extends Seeder
         ]);*/
 
         $this->call([RoleSeeder::class, UserSeeder::class, DepartmentSeeder::class,
-        SectorSeeder::class, TypePersonSeeder::class, Typologies::class]);
+        SectorSeeder::class, TypePersonSeeder::class, TypologySeeder::class]);
     }
 }

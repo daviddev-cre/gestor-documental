@@ -7,7 +7,7 @@ use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Notifications\Messages\MailMessage;
 use Laravel\Passport\Passport;
 use App\Models\Company;
-
+use App\Models\companyReview;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Mail\Message;
 
@@ -31,24 +31,28 @@ class AppServiceProvider extends ServiceProvider
             $id = $notifiable['id'];
             $company = new Company();
             $company['userId'] = $id;
-            $company['nameCompany'] = 'Cambia por el nombre de la empresa';
-            $company['nit'] = 'Escribe el nit de la empresa';
+            $company['nameCompany'] = 'Nombre de la empresa';
+            $company['nit'] = 'Nit de la empresa';
             $company['numberEmployees'] = 0;
-            $company['address'] = 'cambia por la dirección de tu empresa';
+            $company['address'] = 'Dirección de tu empresa';
             $company['cellphone'] = 0000000000;
             $company['whatsapp'] = 0000000000;
-            $company['legalRepresentative'] = 'Escribe tu representante legal';
-            $company['webSite'] = 'Escribe la url de tu sitio web';
+            $company['legalRepresentative'] = 'Representante legal';
+            $company['webSite'] = 'Url de tu sitio web';
             $company['typology_foreigner'] = 1;
-            $company['companyDescription'] = 'Escribe una descripción pequeña de tu empresa';
-            $company['contactEmail'] = 'Escribe el email de tu contacto';
+            $company['companyDescription'] = 'Descripción pequeña de tu empresa';
+            $company['contactEmail'] = 'Email de tu empresa';
             $company['typePerson_foreigner'] = 1;
             $company['sector_foreigner'] = 1;
             $company['department_foreigner'] = 1;
-            $company['review_foreigner'] = 1;
-            $company['percent'] = 0.0;
+            $company['percent'] = 0;
+            $company['state'] = 1;
             $company->save();
-
+            $idCompany = $company->id;
+            $CompanyReview = new companyReview();
+            $CompanyReview['idReview'] = 1;
+            $CompanyReview['idCompany'] = $idCompany;
+            $CompanyReview->save();
             return (new MailMessage)->view('Mail.Auth2FEmailVerify',['url' => $url]);
         });
 

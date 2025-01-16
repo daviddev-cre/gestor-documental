@@ -11,7 +11,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     
     <!-- Favicon -->
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" type="image/x-icon" href="{{asset('favicon.ico')}}" >
+
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -22,27 +23,28 @@
 
     <!-- Vite -->
     @vite(['resources/css/app.css', 'resources/css/home.css','resources/js/app.js'])
+    @vite('resources/js/alertas.js')
+
 </head>
 <body style="width: 100vw; height: 100vh; margin: 0; padding: 0; background-color: #F2F3F6; display: flex; align-items: center; justify-content: center;">
-
+    
     <!-- Container -->
     <div class="containerHome" style="width: 95vw; height: 90vh; display: flex; flex-direction: row; background-color: #ffffff; border-radius: 15px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);">
-        
         <!-- Login Section -->
         <div id="logindiv" style="width: 25%; height: 50%; margin-left: 3%; display: flex; justify-content: center; flex-direction: column;">
             <x-login></x-login>
             <div style="display: flex; align-items: center; justify-content: center; margin-top: 8%; flex-direction: column;">
                 <p>¿No tienes una cuenta aún?</p>
-                <p onclick="loginoregistro()" style="color: #47A1A8; cursor: pointer;">Crear una nueva cuenta</p>
+                <p onclick="loginoregistro()" style="color: #47A1A8; cursor: pointer; font-size:1.2vw;">Crear una nueva cuenta</p>
             </div>
         </div>
 
         <!-- Register Section -->
         <div id="registerdiv" style="width: 25%; height: 50%; margin-left: 3%; display: none; justify-content: center; flex-direction: column;">
             <x-register></x-register>
-            <div style="display: flex; align-items: center; justify-content: center; margin-top: 8%; flex-direction: column;">
+            <div style="display: flex; align-items: center; justify-content: center; margin-top: 8%;  flex-direction: column;">
                 <p>Ya tengo una cuenta</p>
-                <p onclick="loginoregistro()" style="color: #47A1A8; cursor: pointer;">Iniciar sesión</p>
+                <p onclick="loginoregistro()" style="color: #47A1A8; cursor: pointer; font-size:1.2vw; font-height:900;">Iniciar sesión</p>
             </div>
         </div>
 

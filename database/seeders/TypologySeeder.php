@@ -13,14 +13,14 @@ class TypologySeeder extends Seeder
      */
     public function run(): void
     {
-        Typologies::created([
+        Typologies::create([
             'typologyName' => 'No asignado'
         ]);
-        Typologies::created([
+        Typologies::create([
             'typologyName' => 'Spa'
         ]);
 
-        Typologies::created([
+        Typologies::create([
             'typologyName' => 'Centro de estética'
         ]);
     }

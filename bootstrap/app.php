@@ -14,8 +14,11 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
-            'Check2Fa' => 'App\Http\Middleware\Check2Fa'
+            'Check2Fa' => 'App\Http\Middleware\Check2Fa',
+            'role' => 'App\Http\Middleware\roleAdminMiddleware',
+            //'permission' => 'Spatie\Permission\Models\Permission::class',
         ]);
+        
         $middleware->redirectGuestsTo(fn () => route('home'));
     })
     ->withExceptions(function (Exceptions $exceptions) {

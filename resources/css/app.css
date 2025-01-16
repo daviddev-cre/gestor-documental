@@ -1,8 +1,14 @@
 @font-face {
     font-family: 'LeagueSpartan';
-    src: url('/img/LeagueSpartan.ttf') format('truetype'); /* Cambia la ruta al archivo de fuente si es necesario */
+    src: url('../../public/img/LeagueSpartan-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
+}
+
+h1{
+    font-family: 'LeagueSpartan', sans-serif; 
+    font-size: 2vw;
+    font-weight: 800;
 }
 
 h2{
@@ -17,12 +23,29 @@ body{
 
 p{
     color:#868686;
+    font-family: 'LeagueSpartan', sans-serif; 
+}
+
+textarea{
+    font-family: 'LeagueSpartan', sans-serif; 
+    outline: none; 
+    border-radius: 12px;
+    color:#868686;
 }
 
 textarea:focus {
+    font-family: 'LeagueSpartan', sans-serif; 
     border: 2px solid #47A1A8!important;
     outline: none; 
     border-radius: 12px;
+    color:#868686;
+}
+
+input{
+    color:#868686;
+}
+
+select{
     color:#868686;
 }
 
@@ -112,4 +135,3 @@ input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
-

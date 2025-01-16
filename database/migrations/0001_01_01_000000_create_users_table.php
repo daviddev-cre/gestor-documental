@@ -37,7 +37,12 @@ return new class extends Migration
         });
 
         Schema::table('users', function (Blueprint $table) {
+            $table->string('position');
+            $table->string('IdUser');
+            $table->string('professionalCard');
+            $table->string('address');
             $table->string('cellphone', 10);
+            $table->string('whatsapp',10);
             $table->string('state');
             $table->string('icon');
             $table->integer('user_code');
