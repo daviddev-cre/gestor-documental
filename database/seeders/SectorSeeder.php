@@ -13,11 +13,13 @@ class SectorSeeder extends Seeder
     public function run(): void
     {
         Sector::create([
-            'sectorName' => 'No definido'
+            'sectorName' => 'No definido',
+            'ModulesSector' => '{}'
         ]);
 
         Sector::create([
-            'sectorName' => 'Salud'
+            'sectorName' => 'Salud',
+            'ModulesSector' => '{}'
         ]);
     }
 }

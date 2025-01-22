@@ -744,7 +744,7 @@ async function updateUserData(id, event){
     }catch($err){
         console.error('Error en la solicitud:', $err);
         //alert('Ocurrió un error al enviar la solicitud.');
-        showAlert('Ocurrió un error al enviar la solicitud.', 'error');
+        showAlert('Ocurrió un error al enviar la solicitud.', $err);
     }
 }
 

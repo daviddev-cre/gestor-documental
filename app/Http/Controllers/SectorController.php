@@ -33,17 +33,18 @@ class SectorController extends Controller
     public function store(SectorRequest $sectorRequest)
     {
         try{
-            $sectorFind = Sector::find()->where('sectorName', '=', $sectorRequest->sectorName);
-            if(!$sectorFind->exist()){
+            $sectorFind = Sector::where('sectorName', $sectorRequest->sectorName)->exists();
+            if(!$sectorFind){
                 $sectorNew = new Sector();
                 $sectorNew['sectorName'] = $sectorRequest->sectorName;
+                $sectorNew['ModulesSector'] = '{}';
                 $sectorNew->save();
                 return response()->json(['status' => 'success',
                                          'message' => SectorMessage::successCreateSector,
                                          'sector' =>  $sectorRequest->sectorName], 201);
             }
                 return response()->json(['status' => 'fail',
-                                         'message' => SectorMessage::existSector], 404);
+                                         'message' => SectorMessage::existSector], 409);
         }catch(ModelNotFoundException $eModel){
                 return response()->json(['status' => 'fail',
                                          'message' => SectorMessage::failCreateModel,
@@ -106,6 +107,7 @@ class SectorController extends Controller
     {
         try{
             $sector = Sector::findOrFail($id);
+            $sector->delete();
             return response()->json([
                                     'status' => 'success',
                                     'message' => SectorMessage::successDeleteSector,

@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\TwoFAController;
 use App\Http\Middleware\Check2fa;
 use App\Http\Controllers\DepartmentsController;
+use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\SectorController;
 use App\Http\Controllers\TypePersonController;
 use App\Http\Controllers\TypologiesController;
@@ -16,6 +18,8 @@ use App\Models\Company;
 use App\Models\Departments;
 use App\Models\Typologies;
 use App\Models\User;
+use App\Models\Module;
+use App\Models\Sector;
 use Illuminate\Support\Facades\Session;
 
 use App\Mail\ComunicadoEmail;
@@ -106,7 +110,32 @@ Route::get('/admin', function(){
     $Departments = Departments::all();
     $Reviews = User::whereIn('position',['administrador','revisor'])->get();
     $CompanyReviews = companyReview::all();
-    return view('auth.admin', compact('Companies', 'Typologies', 'Departments', 'Reviews','CompanyReviews'));
+    $Modules = Module::all();
+    $Sectors = Sector::all();
+    $arrayModulDocumentAll = [];
+    foreach($Modules as $Module){
+        $modulesWithdocument = [
+            'id' => $Module['id'],
+            'nombre' => $Module['moduleName'],
+            'estado' => 1,
+            'color' => $Module['colorModule'],
+            'icono' => $Module['icon'],
+            'documentos' => []
+        ];
+        $documents = Module::find($Module['id'])->documents;
+        foreach($documents as $document){
+            $documentModule = [
+                'nombre' => $document['documentName'],
+                'descripcion' => $document['documentDescription'],
+                'url' => $document['documentDescription'],
+                'urlvideo' => $document['urlVideo'],
+                'tipo' => 'Word'
+            ];
+            array_push($modulesWithdocument['documentos'],$documentModule);
+        }
+        array_push($arrayModulDocumentAll,$modulesWithdocument);
+    };
+    return view('auth.admin', compact('Companies', 'Typologies', 'Departments', 'Reviews','CompanyReviews', 'Modules','Sectors','arrayModulDocumentAll'));
 })->middleware(['auth'])->name('admin');
 
 
@@ -149,6 +178,23 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/topologia/{id}', [TypologiesController::class , 'show'])->name('topologia.show');
     Route::put('/topologia/{id}', [TypologiesController::class, 'update'])->name('topologia.update');
     Route::delete('/topologia/{id}', [TypologiesController::class , 'destroy'])->name('topologia.destroy');
+});
+
+Route::middleware(['auth'])->group(function(){
+    Route::get('/modulos', [ModuleController::class, 'index'])->name('modulos.index');
+    Route::post('/modulo',[ModuleController::class, 'store'])->name('modulo.store');
+    Route::get('/modulo/{id}', [ModuleController::class, 'show'])->name('modulo.show');
+    Route::put('/modulo/{id}', [ModuleController::class, 'update'])->name('modulo.update');
+    Route::delete('/modulo/{id}', [ModuleController::class, 'destroy'])->name('modulo.destroy');
+});
+
+Route::middleware(['auth'])->group(function(){
+    Route::get('/documento', [DocumentController::class , 'index'])->name('documento.index');
+    Route::post('/documento', [DocumentController::class, 'store'])->name('documento.store');
+    Route::get('/buscar_documentos/{id}',[DocumentController::class, 'documentsModules'])->name('buscar_documentos.documentsModules');
+    Route::get('/documento/{id}', [DocumentController::class, 'show'])->name('documento.show');
+    Route::put('/documento/{id}', [DocumentController::class, 'update'])->name('documento.update');
+    Route::delete('documento/{id}', [DocumentController::class, 'destroy'])->name('documento.destroy');
 });
 
 Route::middleware(['auth'])->group(function(){

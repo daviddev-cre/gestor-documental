@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('sectors', function (Blueprint $table) {
             $table->id();
             $table->string('sectorName');
+            $table->json('ModulesSector');
             $table->timestamps();
         });
     }

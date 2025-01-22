@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('modules', function (Blueprint $table) {
             $table->id();
             $table->string('moduleName');
-            $table->string('Description')->nullable();
+            $table->string('description');
+            $table->string('colorModule')->nullable();
             $table->string('icon')->nullable();
             $table->timestamps();
         });

@@ -2,7 +2,7 @@
 $msdemmodulo = [
     [
         'id' => 1,
-        'nombre' => 'Modulo 1',
+        'nombre' => 'Modulo 11',
         'estado' => 0,
         'color' => '#47a1a8',
         'icono' => '1.svg',
@@ -25,7 +25,7 @@ $msdemmodulo = [
     ],
     [
         'id' => 2,
-        'nombre' => 'Modulo 2',
+        'nombre' => 'Modulo 22',
         'estado' => 1,
         'color' => '#7a8ffa',
         'icono' => '5.svg',
@@ -41,7 +41,7 @@ $msdemmodulo = [
     ],
     [
         'id' => 3,
-        'nombre' => 'Modulo 3',
+        'nombre' => 'Modulo 33',
         'estado' => 1,
         'color' => '#fd7377',
         'icono' => '8.svg',
@@ -75,7 +75,8 @@ $msdemmodulo = [
     <title>mmmodulo</title>
     <style>
         #slideDivmmmodulo { width: 500px; height: 100vh; background-color: #ffffff; position: fixed; top: 0; right: -600px; border-radius: 14px 0 0 14px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); transition: right 0.5s ease; } 
-        #slideDivmmmodulo.active { right: 0; } @keyframes floating { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } } 
+        .slideDivmmmodulo { width: 500px; height: 100vh; background-color: #ffffff; position: fixed; top: 0; right: -600px; border-radius: 14px 0 0 14px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); transition: right 0.5s ease; } 
+        .slideDivmmmodulo.active { right: 0; } @keyframes floating { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } } 
         @keyframes growWidth { from { width: 0; } to { width: 60%; } } #porcentajetotal div { animation: growWidth 3s ease forwards; }
         .switchmmmodulo input{opacity:0;width:0}.slideres{display:flex;align-items:center;position:absolute;cursor:pointer;top:10%;left:10%;right:0;bottom:0;background-color:#FD7377;transition:0.4s;border-radius:100vw}.slideres span{position:absolute;content:'';height:75%;aspect-ratio:1/1;border-radius:50%;left:8%;background-color:white;transition:0.4s}.slideres.on{background-color:#47A1A8}.slideres.off{background-color:#FD7377}.slideres.on span{transform:translateX(100%)}.slideres.off span{transform:translateX(0)}
         #slideDivmmmodulo { width: 500px; height: 100vh; background-color: #ffffff; position: fixed; top: 0; right: -600px; border-radius: 14px 0 0 14px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); transition: right 0.5s ease; } 
@@ -91,10 +92,9 @@ $msdemmodulo = [
 </head> 
 <body style="overflow:hidden;">
     
-    <div style="width:100%; height:100%; box-sizing: border-box; padding-left:3%;">
+    <div style="width:100%; height:100%; box-sizing: border-box; padding-left:3%;"> 
         <h1 style="color:#47A1A8;">modulos y normatividad</h1>
         <p style="font-size:1vw;">En esta sección puedes gestionar cada uno de los moduloss, es decir las listas de la documentacion que debe cumplir cada usuario</p>
-        
         <div style="width:96%; aspect-ratio:35/1; display:flex; flex-direction:row; justify-content: space-between;">
             <div style="width:50%; height:95%; position: relative;">
                 <input id="buscarmoduloss" type="text" placeholder="Buscar" style="padding-left:40px; font-size:.9vw; width:calc(99% - 40px); height:100%; border:2px solid #47A1A8; border-radius:12px;" oninput="filtrarmmoduloss()">
@@ -107,49 +107,102 @@ $msdemmodulo = [
                 <option value="Activos">Activos</option>
                 <option value="Inactivos">Inactivos</option>
             </select>
-
-            <div onclick="editarmmmodulo()" style="cursor:pointer; width:13%; height:100%; background-color:#ffffff; border-radius:10px; display:flex; align-items:center; justify-content:center; border: 2px solid #47A1A8;">
+            <div onclick="crearModulo()" style="cursor:pointer; width:13%; height:100%; background-color:#ffffff; border-radius:10px; display:flex; align-items:center; justify-content:center; border: 2px solid #47A1A8;">
                 <p style="color:#47A1A8; font-size:.9vw;">+ Nuevo Modulo</p>
             </div>
             <div onclick="guardartodo()" style="cursor:pointer; width:13%; height:100%; background-color:#47A1A8; border-radius:10px; display:flex; align-items:center; justify-content:center; border: 2px solid #47A1A8;">
                 <p style="color:#ffffff; font-size:.9vw;">Guardar todo</p>
             </div>
         </div>
-
         <div style="width:96%;height:calc(73% + 10px); display:flex; flex-direction:rpw;">
-
-        
-            <div id="listammmodulo" style="width:50%; height:100%; margin-top:20px; overflow-y: auto; padding:1%; box-sizing:border-box;">
-                
-                <?php foreach ($msdemmodulo as $msdemmoduloss): ?>
-                    <div id="mmodulo<?php echo $msdemmoduloss['id']; ?>" class="mmodulossc" data-estado="<?php echo $msdemmoduloss['estado']; ?>" 
-                        style="width:100%; aspect-ratio:25/1; margin-bottom:.6%; background-color:#F2F3F6; border-radius:.5vw; display:flex; flex-direction:row; align-items:center; cursor:pointer;" onclick="seleccionarmmodulo(<?php echo $msdemmoduloss['id']; ?>)">
-                        <div style="height:150%; border-radius:5px; aspect-ratio:1/1; background-color:<?php echo $msdemmoduloss['color']; ?>; margin-left:1%;">
-                            <img style="height:100%;" src="img/<?php echo $msdemmoduloss['icono']; ?>" alt="icono">
-                        </div>
-                        <p id="nombremmodulo<?php echo $msdemmoduloss['id']; ?>" class="nombremmodulo" style="margin-left:2%; width:80%; font-size:.9vw;"><?php echo $msdemmoduloss['nombre']; ?></p>
-                        <div style="width:10%; height:100%; display:flex; flex-direction:row; justify-content: flex-end; align-items:center;">
-                            <img id="eliminarmmodulo<?php echo $msdemmoduloss['id']; ?>" class="eliminarmmodulo" onclick="eliminarmmmodulo(<?php echo $msdemmoduloss['id']; ?>)" style=" height:80%; margin-right:8%; cursor:pointer;" src="https://img.icons8.com/material-outlined/24/47A1A8/delete.png" alt="Delete Icon">
-                            <img id="editarmmodulo<?php echo $msdemmoduloss['id']; ?>" class="editarmmodulo" onclick="editarmmmodulo(<?php echo $msdemmoduloss['id']; ?>)" style="height:80%; margin-right:8%; cursor:pointer;" src="https://img.icons8.com/material-outlined/24/47A1A8/edit.png" alt="Edit Icon">
-                        </div>
-                        
+        <div id="listammmodulo" style="width:50%; height:100%; margin-top:20px; overflow-y: auto; padding:1%; box-sizing:border-box;"> 
+            @foreach ($Modules as $Module)
+                <div id="mmodulo{{$Module['id']}}" class="mmodulossc"
+                    style="width:100%; aspect-ratio:25/1; margin-bottom:.6%; background-color:#F2F3F6; border-radius:.5vw; display:flex; flex-direction:row; align-items:center; cursor:pointer;" >
+                    <div style="height:150%; border-radius:5px; aspect-ratio:1/1; background-color:{{$Module['colorModule']}}; margin-left:1%;" onclick="seleccionarmmodulo({{$Module['id']}})">
+                        <img style="height:100%;" src="{{$Module['icon']}}" alt="icono">
                     </div>
-                <?php endforeach; ?>
-                
-            </div>
-            <div id="listammmodulo" style="border-radius:10px; background-color:#47A1A8; width:50%; height:100%; margin-top:15px; overflow-y: auto; padding:1%; box-sizing:border-box;">
-             
-                <div>
-                    <div class="acordeon" style="background-color:transparent; justify-content: flex-end; display:flex; flex-direction:row; padding-left:3%; box-sizing:border-box; align-items:center;">    
-                        <div onclick="nuevodocumento()" style=" cursor:pointer; width:30%; height:70%; margin-right:1%; background-color:#ffffff; border-radius:10px; display:flex; align-items:center; justify-content:center; border: 2px solid #ffffff;">
-                            <p style="color:#47A1A8; font-size:.9vw;">+ Nuevo documento</p>
-                        </div>
+                    <p id="nombremmodulo{{$Module['id']}}" class="nombremmodulo" style="margin-left:2%; width:80%; font-size:.9vw;">{{$Module['moduleName']}}</p>
+                    <div style="width:10%; height:100%; display:flex; flex-direction:row; justify-content: flex-end; align-items:center;">
+                        <img id="eliminarmmodulo{{$Module['id']}}" class="eliminarmmodulo" onclick="eliminarmmmodulo({{$Module['id']}})" style=" height:80%; margin-right:8%; cursor:pointer;" src="https://img.icons8.com/material-outlined/24/47A1A8/delete.png" alt="Delete Icon">
+                        <img id="editarmmodulo{{$Module['id']}}" class="editarmmodulo" onclick="editarmmmodulo({{$Module['id']}})" style="height:80%; margin-right:8%; cursor:pointer;" src="https://img.icons8.com/material-outlined/24/47A1A8/edit.png" alt="Edit Icon">
                     </div>
-                    
                 </div>
-        
+                <!--slide actualización-->
+                <div id="slideDivmmmodulo{{$Module['id']}}" class="slideDivmmmodulo" style="padding:2%; box-sizing: border-box;">
+                    <div style="height:100%; overflow-y: auto; overflow-x: hidden; padding:3%; padding-top:0; padding-bottom:0;">
+                        <p style="margin:0; padding:0; color:#47A1A8; font-size:1.3vw; font-weight:700;">Actualizar {{ $Module['moduleName']}}</p>
+                        <p style="font-size:.7vw;  padding:0;">A continuación se muestra la información del usuario seleccionado. Por favor, no realices modificaciones a menos que sea estrictamente necesario.</p>
+                        <div style="height:15%; width:100%; display:flex; justify-content:center; align-items:center;">
+                            <img onclick=" moveSlideUpdateForm('left',{{$Module['id']}})" src="img/izquierda.svg" alt="antes" style="height:25%; cursor:pointer; padding:10%;">
+                            <div id="fondoiConoUpdate{{$Module['id']}}" style="display:flex; justify-content:center; align-items:center; height:100%; aspect-ratio:1/1; background-color:{{$Module['colorModule']}}; border-radius: 10px;">
+                                <img id="iconoseleccionado{{$Module['id']}}" src="{{$Module['icon']}}" alt="icono" style="width:90%;">
+                            </div>
+                            <img onclick="moveSlideUpdateForm('right',{{$Module['id']}})" src="img/derecha.svg" alt="antes" style="height:25%;cursor:pointer; padding:10%;">
+                        </div>
+                        <div style="width:60%; margin-left:20%; margin-top:20px; margin-bottom:20px; display: grid; grid-template-columns: repeat(5, 1fr); grid-template-rows: repeat(2, auto); gap: 10px; ">
+                            <div onclick="seleccionarcolorUpdate('#f9af40', {{$Module['id']}})" class="colores" style="background-color: #f9af40;"></div>
+                            <div onclick="seleccionarcolorUpdate('#ff5055', {{$Module['id']}})" class="colores" style="background-color: #ff5055;"></div>
+                            <div onclick="seleccionarcolorUpdate('#7bd2cd', {{$Module['id']}})" class="colores" style="background-color: #7bd2cd;"></div>
+                            <div onclick="seleccionarcolorUpdate('#1c203e', {{$Module['id']}})" class="colores" style="background-color: #1c203e;"></div>
+                            <div onclick="seleccionarcolorUpdate('#47a1a8', {{$Module['id']}})" class="colores" style="background-color: #47a1a8;"></div>
+                            <div onclick="seleccionarcolorUpdate('#5fd079', {{$Module['id']}})" class="colores" style="background-color: #5fd079;"></div>
+                            <div onclick="seleccionarcolorUpdate('#154854', {{$Module['id']}})" class="colores" style="background-color: #154854;"></div>
+                            <div onclick="seleccionarcolorUpdate('#7b6cc9', {{$Module['id']}})" class="colores" style="background-color: #7b6cc9;"></div>
+                            <div onclick="seleccionarcolorUpdate('#868686', {{$Module['id']}})" class="colores" style="background-color: #868686;"></div>
+                            <div onclick="seleccionarcolorUpdate('#fd7377', {{$Module['id']}})" class="colores" style="background-color: #fd7377;"></div>
+                        </div>
+                        <form id="updateModule{{$Module['id']}}">
+                            @csrf
+                            <input type="hidden" value="{{$Module['colorModule']}}" id="colorBackgroundIconUpdate{{$Module['id']}}" name="colorModule">
+                            <input type="hidden" value="{{$Module['icon']}}" id="iconLogoModuleUpdate{{$Module['id']}}" name="icon">
+                            <div style="margin-bottom: 16px; position: relative;">
+                                <input id="nombredelmodulo" type="text" name="moduleName" value="{{$Module['moduleName']}}" placeholder="Nombre del modulo" style="width: calc(99% - 40px); padding: 6px; padding-left:40px; border: 3px solid #F6F8FB; border-radius: 8px; font-size: 14px; background-color: #FAFBFE; color: #333;">
+                                <span style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #ccc;">
+                                    <img src="https://img.icons8.com/material-outlined/24/cccccc/building.png" alt="Company Icon">
+                                </span>
+                            </div>
+                            <div style="margin-bottom: 10px; position: relative;">
+                                <textarea id="descripcionmodulo" name="description" placeholder="Descripcion de la mmodulo" rows="3" style="width: 98%; aspect-ratio:1/.5; padding: 6px 6px; border: 3px solid #F6F8FB; border-radius: 8px; font-size: 16px; background-color: #FAFBFE; color: #333; resize: none;">{{$Module['description']}}</textarea>
+                            </div>
+                        </form>
+                        <div style="width:100%; display:flex; flex-direction:row; justify-content:space-between;">
+                            <div style="margin-bottom: 16px; position: relative; width:50%;"> 
+                                <button onclick="cerrarmmmodulomodificado({{$Module['id']}})" style="cursor:pointer; background-color:#ffffff; color:#47A1A8; border-radius:10px; border: 2px solid #47A1A8; width:100%;height:35px;font-weight:600;">Cerrar</button>
+                            </div>
+                            <div style="margin-bottom: 16px; position: relative; width:50%; margin-left:2%;">
+                                <button onclick="guradrmmmodulomodificado({{$Module['id']}})" style="cursor:pointer; background-color:#47A1A8; color:#ffffff; border-radius:10px; border:none; width:100%;height:35px;font-weight:600;">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="modaleliminarmmmodulo{{$Module['id']}}" style="display:none; position:relative; width:120vw; height:120vh; background-color:rgba(50, 50, 50, 0.8); position:fixed; padding:0; margin:-20%; z-index: 99999; margin-left:-30%; align-items:center; justify-content:center;">
+                    <form id="deleteModuleForm{{$Module['id']}}">
+                        <div style="position:relative; Width:50vw;height:50vh;;background-color:#ffffff; margin:0;padding:0;border-radius:12px; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+                            <img src="img/logo.svg" alt="logo" style="width:30%;">
+                            <p style="width:50%;text-align:center; font-size:.9vw;">Para eliminar de manera <b>permanente</b> este usuario por favor escriba <b>la palabra "eliminar"</b></p>
+                                @csrf
+                                @method('DELETE')
+                                <input id="palabraeliminarmodulo{{$Module['id']}}" type="texto" placeholder="Escriba la palabra eliminar" style=" text-align:center;width:50%;height:30px;border-radius:12px;border:2px solid #47A1A8;">
+                                <div onclick="confirmareliminarmmmodulo({{$Module['id']}})" style="background-color:#47A1A8; margin-top:10px; width:200px; height:35px; border-radius:9px; display:flex; align-items:center; justify-content:center; cursor:pointer;"><p style="color:#ffffff; width:100%;height:50%;text-align:center;padding:0;">Eliminar</p></div>
+                                <p onclick="cerrareliminarmmmodulo({{$Module['id']}})" style="color:#47A1A8; cursor:pointer;">Cerrar</p>
+                        </div> 
+                    </form>
+                </div>
+            @endforeach
+        </div>
 
-            <div class="acordeon-container">
+        <div id="listammmodulo" style="border-radius:10px; background-color:#47A1A8; width:50%; height:100%; margin-top:15px; overflow-y: auto; padding:1%; box-sizing:border-box;">
+            
+        <div>
+            <div class="acordeon" style="background-color:transparent; justify-content: flex-end; display:flex; flex-direction:row; padding-left:3%; box-sizing:border-box; align-items:center;">    
+                <div onclick="nuevodocumento()" style=" cursor:pointer; width:30%; height:70%; margin-right:1%; background-color:#ffffff; border-radius:10px; display:flex; align-items:center; justify-content:center; border: 2px solid #ffffff;">
+                    <p style="color:#47A1A8; font-size:.9vw;">+ Nuevo documento</p>
+                </div>
+            </div>
+            
+        </div>
+        <div class="acordeon-container">
 
                 <!--<div id="listadedocumentos" style="width:100%; height:100%; display:none; flex-direction:column;">                    
                     <div class="acordeon-item" draggable="true">
@@ -205,85 +258,80 @@ $msdemmodulo = [
             <p onclick="ocultarmodalsumarusuario()" style="color:#47A1A8; cursor:pointer;">Cerrar</p>
         </div>
     </div>
-    <div id="modaleliminarmmmodulo" style="display:none; position:relative; width:150vw; height:150vh; background-color:rgba(50, 50, 50, 0.8); position:fixed; padding:0; margin:0; z-index: 99999; margin-left:-18.4%; align-items:center; justify-content:center;">
-        <div style="position:relative; Width:50vw;height:50vh;;background-color:#ffffff; margin:0;padding:0;border-radius:12px; display:flex; flex-direction:column; align-items:center; justify-content:center;">
-            <img src="img/logo.svg" alt="logo" style="width:30%;">
-            <p style="width:50%;text-align:center; font-size:.9vw;">Para eliminar de manera <b>permanente</b> este usuario por favor escriba <b>la palabra "eliminar"</b></p>
-            <input id="palabraeliminarmodulo" type="nombre" placeholder="Escriba la palabra eliminar" style=" text-align:center;width:50%;height:30px;border-radius:12px;border:2px solid #47A1A8;">
-            <div onclick="confirmareliminarmmmodulo()" style="background-color:#47A1A8; margin-top:10px; width:200px; height:35px; border-radius:9px; display:flex; align-items:center; justify-content:center; cursor:pointer;"><p style="color:#ffffff; width:100%;height:50%;text-align:center;padding:0;">Eliminar</p></div>
-            <p onclick="cerrareliminarmmmodulo()" style="color:#47A1A8; cursor:pointer;">Cerrar</p>
-        </div> 
-    </div>
     <div id="modalnuevodocumento" style="display:none; position:relative; width:150vw; height:150vh; background-color:rgba(50, 50, 50, 0.8); position:fixed; padding:0; margin:0; z-index: 99999; margin-left:-18.4%; align-items:center; justify-content:center;">
-        <div style="position:relative; Width:50vw;height:50vh;;background-color:#ffffff; margin:0;padding:0;border-radius:12px; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+        <div style="position:relative; Width:40vw;height:60vh;background-color:#ffffff; margin:0;padding:0;border-radius:12px; display:flex; flex-direction:column; align-items:center; justify-content:center;">
             <img src="img/logo.svg" alt="logo" style="width:30%; margin-bottom:3%;">
-            <input id="nombredelnuevodocumento" type="text" autocomplete="off" name="name"placeholder="Nombre del nuevo documento" style=" text-align:center;width:50%;height:30px;border-radius:12px;border:2px solid #47A1A8;">
-            <div  onclick="crearnuevodocumento()" style="background-color:#47A1A8; margin-top:10px; width:200px; height:35px; border-radius:9px; display:flex; align-items:center; justify-content:center; cursor:pointer;"><p style="color:#ffffff; width:100%;height:50%;text-align:center;padding:0;">Crear documento</p></div>
+            <form style="width :80%; height : 60%; display:flex; flex-direction:column; align-items:center; justify-content:space-evenly;" id="createDocumentForm" >
+                @csrf
+                <input name="urlDocument" type="hidden" value="Cambiar" required>
+                <input id="nombredelnuevodocumento" type="text" autocomplete="off" name="documentName" placeholder="Nombre del nuevo documento" style=" text-align:center;width:50%;height:30px;border-radius:12px;border:2px solid #47A1A8;" required >
+                <input type="file" name="file" style="text-align:center;width:50%;height:30px;border-radius:12px;border:2px solid #47A1A8;" accept=".doc,.csv,.pdf" required >
+                <input type="text" name="urlVideo" placeholder="Url del video" style=" text-align:center;width:50%;height:30px;border-radius:12px;border:2px solid #47A1A8;" required >
+                <input type="text" name="documentDescription" placeholder="descripción del documento" style=" text-align:center;width:50%;height:30px;border-radius:12px;border:2px solid #47A1A8;" required >
+                <div  onclick="crearnuevodocumento(event)" style="background-color:#47A1A8; margin-top:10px; width:200px; height:35px; border-radius:9px; display:flex; align-items:center; justify-content:center; cursor:pointer;"><p style="color:#ffffff; width:100%;height:50%;text-align:center;padding:0;">Crear documento</p></div>
+            </form>
             <p onclick="ocultarmodalsumardocumento()" style="color:#47A1A8; cursor:pointer;">Cerrar</p>
         </div>
     </div>
     <div id="modaleliminardocumento" style="display:none; position:relative; width:150vw; height:150vh; background-color:rgba(50, 50, 50, 0.8); position:fixed; padding:0; margin:0; z-index: 99999; margin-left:-18.4%; align-items:center; justify-content:center;">
         <div style="position:relative; Width:50vw;height:50vh;;background-color:#ffffff; margin:0;padding:0;border-radius:12px; display:flex; flex-direction:column; align-items:center; justify-content:center;">
             <img src="img/logo.svg" alt="logo" style="width:30%;">
-            <p style="width:50%;text-align:center; font-size:.9vw;">Para eliminar de manera <b>permanente</b> este usuario por favor escriba <b>la palabra "eliminar"</b></p>
+            <p style="width:50%;text-align:center; font-size:.9vw;">Para eliminar de manera <b>permanente</b> este documento por favor escriba <b>la palabra "eliminar"</b></p>
             <input id="palabraeliminardocumento" type="nombre" placeholder="Escriba la palabra eliminar" style=" text-align:center;width:50%;height:30px;border-radius:12px;border:2px solid #47A1A8;">
             <div onclick="confirmareliminardocumento()" style="background-color:#47A1A8; margin-top:10px; width:200px; height:35px; border-radius:9px; display:flex; align-items:center; justify-content:center; cursor:pointer;"><p style="color:#ffffff; width:100%;height:50%;text-align:center;padding:0;">Eliminar</p></div>
             <p onclick="cerrarmodaleliminardocumento()" style="color:#47A1A8; cursor:pointer;">Cerrar</p>
         </div> 
     </div>
-
-    <!--slide-->
-    <div id="slideDivmmmodulo" style="padding:2%; box-sizing: border-box;">
-
-            <div style="height:100%; overflow-y: auto; overflow-x: hidden; padding:3%; padding-top:0; padding-bottom:0;">
-                <p style="margin:0; padding:0; color:#47A1A8; font-size:1.3vw; font-weight:700;">Crea un nuevo Modulo</p>
-                <p style="font-size:.7vw;  padding:0;">A continuación se muestra la información del usuario seleccionado. Por favor, no realices modificaciones a menos que sea estrictamente necesario.</p>
-
-                <div style="height:15%; width:100%; display:flex; justify-content:center; align-items:center;">
-                   
-                    <img onclick="moveSlide('left')" src="img/izquierda.svg" alt="antes" style="height:25%; cursor:pointer; padding:10%;">
-                    <div id="fondoicono" style="display:flex; justify-content:center; align-items:center; height:100%; aspect-ratio:1/1; background-color:#47a1a8; border-radius: 10px;">
-                        <img id="iconoseleccionado" src="img/12.svg" alt="icono" style="width:90%;">
-                    </div>
-                    <img onclick="moveSlide('right')" src="img/derecha.svg" alt="antes" style="height:25%;cursor:pointer; padding:10%;">
-                    
+     <!--slide nuevo modulo-->
+     <div id="slideDivmmmodulo" style="padding:2%; box-sizing: border-box;">
+        <div style="height:100%; overflow-y: auto; overflow-x: hidden; padding:3%; padding-top:0; padding-bottom:0;">
+            <p style="margin:0; padding:0; color:#47A1A8; font-size:1.3vw; font-weight:700;">Crea un nuevo Modulo</p>
+            <p style="font-size:.7vw;  padding:0;">A continuación se muestra la información del usuario seleccionado. Por favor, no realices modificaciones a menos que sea estrictamente necesario.</p>
+            <div style="height:15%; width:100%; display:flex; justify-content:center; align-items:center;">
+                <img onclick="moveSlide('left')" src="img/izquierda.svg" alt="antes" style="height:25%; cursor:pointer; padding:10%;">
+                <div id="fondoiconoNuevoModulo" style="display:flex; justify-content:center; align-items:center; height:100%; aspect-ratio:1/1; background-color:#47a1a8; border-radius: 10px;">
+                    <img id="iconoseleccionadoNuevoModulo" src="img/12.svg" alt="icono" style="width:90%;">
                 </div>
-
-                <div style="width:60%; margin-left:20%; margin-top:20px; margin-bottom:20px; display: grid; grid-template-columns: repeat(5, 1fr); grid-template-rows: repeat(2, auto); gap: 10px; ">
-                    <div onclick="seleccionarcolor('#f9af40')" class="colores" style="background-color: #f9af40;"></div>
-                    <div onclick="seleccionarcolor('#ff5055')" class="colores" style="background-color: #ff5055;"></div>
-                    <div onclick="seleccionarcolor('#7bd2cd')" class="colores" style="background-color: #7bd2cd;"></div>
-                    <div onclick="seleccionarcolor('#1c203e')" class="colores" style="background-color: #1c203e;"></div>
-                    <div onclick="seleccionarcolor('#47a1a8')" class="colores" style="background-color: #47a1a8;"></div>
-                    <div onclick="seleccionarcolor('#5fd079')" class="colores" style="background-color: #5fd079;"></div>
-                    <div onclick="seleccionarcolor('#154854')" class="colores" style="background-color: #154854;"></div>
-                    <div onclick="seleccionarcolor('#7b6cc9')" class="colores" style="background-color: #7b6cc9;"></div>
-                    <div onclick="seleccionarcolor('#868686')" class="colores" style="background-color: #868686;"></div>
-                    <div onclick="seleccionarcolor('#fd7377')" class="colores" style="background-color: #fd7377;"></div>
-                    
-                </div>
-
+                <img onclick="moveSlide('right')" src="img/derecha.svg" alt="antes" style="height:25%;cursor:pointer; padding:10%;">
+            </div>
+            <div style="width:60%; margin-left:20%; margin-top:20px; margin-bottom:20px; display: grid; grid-template-columns: repeat(5, 1fr); grid-template-rows: repeat(2, auto); gap: 10px; ">
+                <div onclick="seleccionarcolor('#f9af40')" class="colores" style="background-color: #f9af40;"></div>
+                <div onclick="seleccionarcolor('#ff5055')" class="colores" style="background-color: #ff5055;"></div>
+                <div onclick="seleccionarcolor('#7bd2cd')" class="colores" style="background-color: #7bd2cd;"></div>
+                <div onclick="seleccionarcolor('#1c203e')" class="colores" style="background-color: #1c203e;"></div>
+                <div onclick="seleccionarcolor('#47a1a8')" class="colores" style="background-color: #47a1a8;"></div>
+                <div onclick="seleccionarcolor('#5fd079')" class="colores" style="background-color: #5fd079;"></div>
+                <div onclick="seleccionarcolor('#154854')" class="colores" style="background-color: #154854;"></div>
+                <div onclick="seleccionarcolor('#7b6cc9')" class="colores" style="background-color: #7b6cc9;"></div>
+                <div onclick="seleccionarcolor('#868686')" class="colores" style="background-color: #868686;"></div>
+                <div onclick="seleccionarcolor('#fd7377')" class="colores" style="background-color: #fd7377;"></div>
+            </div>
+            <form id="createModuleNew">
+                @csrf
+                @method('POST')
+                <input type="hidden" value="#47a1a8" id="colorBackgroundIconNewModule" name="colorModule">
+                <input type="hidden" value="img/12.svg" id="iconLogoModuleNewModule" name="icon">
                 <div style="margin-bottom: 16px; position: relative;">
-                    <input id="nombredelnuevomodulo" type="text" name="mmodulo" value="" placeholder="Nombre del modulo" style="width: calc(99% - 40px); padding: 6px; padding-left:40px; border: 3px solid #F6F8FB; border-radius: 8px; font-size: 14px; background-color: #FAFBFE; color: #333;">
+                    <input id="nombredelnuevomodulo" type="text" name="moduleName" value="" placeholder="Nombre del modulo" style="width: calc(99% - 40px); padding: 6px; padding-left:40px; border: 3px solid #F6F8FB; border-radius: 8px; font-size: 14px; background-color: #FAFBFE; color: #333;">
                     <span style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #ccc;">
                         <img src="https://img.icons8.com/material-outlined/24/cccccc/building.png" alt="Company Icon">
                     </span>
                 </div>
-
                 <div style="margin-bottom: 10px; position: relative;">
-                    <textarea id="descripciondelnuevomodulo" name="descripciondelnuevomodulo" placeholder="Descripcion de la mmodulo" rows="3" style="width: 98%; aspect-ratio:1/.5; padding: 6px 6px; border: 3px solid #F6F8FB; border-radius: 8px; font-size: 16px; background-color: #FAFBFE; color: #333; resize: none;"></textarea>
+                    <textarea id="descripciondelnuevomodulo" name="description" placeholder="Descripcion de la mmodulo" rows="3" style="width: 98%; aspect-ratio:1/.5; padding: 6px 6px; border: 3px solid #F6F8FB; border-radius: 8px; font-size: 16px; background-color: #FAFBFE; color: #333; resize: none;"></textarea>
                 </div>
-
-                <div style="width:100%; display:flex; flex-direction:row; justify-content:space-between;">
-                    <div style="margin-bottom: 16px; position: relative; width:50%;"> 
-                        <button onclick="cerrarmmmodulomodificado()" style="cursor:pointer; background-color:#ffffff; color:#47A1A8; border-radius:10px; border: 2px solid #47A1A8; width:100%;height:35px;font-weight:600;">Cerrar</button>
-                    </div>
-                    <div style="margin-bottom: 16px; position: relative; width:50%; margin-left:2%;">
-                        <button onclick="guradrmmmodulomodificado()" style="cursor:pointer; background-color:#47A1A8; color:#ffffff; border-radius:10px; border:none; width:100%;height:35px;font-weight:600;">Guardar</button>
-                    </div>
+            </form>
+            <div style="width:100%; display:flex; flex-direction:row; justify-content:space-between;">
+                <div style="margin-bottom: 16px; position: relative; width:50%;"> 
+                    <button onclick="cerrarmmmodulonuevo()" style="cursor:pointer; background-color:#ffffff; color:#47A1A8; border-radius:10px; border: 2px solid #47A1A8; width:100%;height:35px;font-weight:600;">Cerrar</button>
+                </div>
+                <div style="margin-bottom: 16px; position: relative; width:50%; margin-left:2%;">
+                    <button onclick="gurdarmodulonuevo()" style="cursor:pointer; background-color:#47A1A8; color:#ffffff; border-radius:10px; border:none; width:100%;height:35px;font-weight:600;">Guardar</button>
                 </div>
             </div>
         </div>
+    </div>
+    
 
         <div id="slideDivmmmodulo" style="padding:2%; box-sizing: border-box;">
             <p style="margin:0; padding:0; color:#47A1A8; font-size:1.3vw; font-weight:700;">Informacion del colaborador</p>
@@ -342,221 +390,283 @@ $msdemmodulo = [
         }
         function eliminarmmmodulo(id){
             usuarioaeliminar = id;
-            document.getElementById('modaleliminarmmmodulo').style.display = "flex";
+            document.getElementById('modaleliminarmmmodulo'+id).style.display = "flex";
         }
-        function confirmareliminarmmmodulo(){
-            let palabraeliminarmodulo = document.getElementById('palabraeliminarmodulo').value;
-            if(palabraeliminarmodulo === 'eliminar'){
-                document.getElementById('modaleliminarmmmodulo').style.display = "none";
-                const mmoduloDiv = document.getElementById('mmodulo' + usuarioaeliminar);
-                if (mmoduloDiv) {
-                    mmoduloDiv.style.display = 'none';
-                }                   
-            }else{
-                alert('La palabra '+palabraeliminarmodulo+' no coincide');
-            }
+async function confirmareliminarmmmodulo(idModulo){
+    try{
+        const token = sessionStorage.getItem('token_bearer');
+        let palabraeliminarmodulo = document.getElementById('palabraeliminarmodulo'+idModulo).value;
+        if(palabraeliminarmodulo === 'eliminar'){
+            document.getElementById('modaleliminarmmmodulo'+idModulo).style.display = "none";
+            const mmoduloDiv = document.getElementById('mmodulo' + usuarioaeliminar);
+            if (mmoduloDiv) {
+                mmoduloDiv.style.display = 'none';
+            } 
+            let form = document.getElementById('deleteModuleForm'+idModulo);
+            let formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+            const url = `/modulo/${idModulo}`; 
+            const response =  await fetch(url , {
+                method : 'DELETE',
+                headers : {
+                        'Content-Type' : 'application/json',
+                        'Authorization' : `Bearer ${token}`
+            }, 
+            body : JSON.stringify(data)
+            });  
+            if(response.ok){
+                showAlert('Se elimino el modulo', 'success');
+            } else{
+                showAlert('No se pudo eliminar el modulo', 'error');
+            }        
         }
-        
+        }catch(err){
+            showAlert(`Error: ${err}`, 'error');
+        }
+    }
+     
+    
+function crearModulo(){
+    const slideDivmmmodulo = document.getElementById('slideDivmmmodulo');
+    if (slideDivmmmodulo.classList.contains('active')) {
+        slideDivmmmodulo.classList.remove('active'); 
+    } else {
+        slideDivmmmodulo.classList.add('active');  
+    }
+}    
 
-        function editarmmmodulo(id) {
+function editarmmmodulo(id) {
+    const slideDivmmmodulo = document.getElementById('slideDivmmmodulo'+id);
+    if (slideDivmmmodulo.classList.contains('active')) {
+        slideDivmmmodulo.classList.remove('active'); 
+    } else {
+        slideDivmmmodulo.classList.add('active');  
+    }
+}
+
+async function guradrmmmodulomodificado(id){
+    try{
+        const token = sessionStorage.getItem('token_bearer');
+        let form = document.getElementById('updateModule'+id);
+        let formData =  new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+        console.log(data);
+        const url = `/modulo/${id}`;
+        const response = await fetch(url, {
+        method : 'PUT',
+        headers : {
+            'Content-Type' : 'application/json',
+            'Authorization' : `Bearer ${token}`
+        },
+        body : JSON.stringify(data)
+        })
+        if(response.ok){
+            showAlert("Se ha modificado el modulo","success");
             const slideDivmmmodulo = document.getElementById('slideDivmmmodulo');
-            if (slideDivmmmodulo.classList.contains('active')) {
-                slideDivmmmodulo.classList.remove('active'); 
-            } else {
-                slideDivmmmodulo.classList.add('active');  
-            }
+            slideDivmmmodulo.classList.remove('active');
+        }else{
+            showAlert("No se pudo modificar el modulo");
         }
+    }catch(err){
+        showAlert("Se produjo un error : ", err);
+    }   
+}
 
         
-        function guradrmmmodulomodificado(){
-
-            let nombredelnuevomodulo = document.getElementById('nombredelnuevomodulo').value;
-            let divcolor = document.getElementById('fondoicono');
-            let colorFondo = window.getComputedStyle(divcolor).backgroundColor;
-            let imgElemento = document.getElementById('iconoseleccionado');
-            let rutaImagen = imgElemento.src; 
-            let nombreImagen = rutaImagen.substring(rutaImagen.lastIndexOf('/') + 1);
-            let siguienteId = obtenerSiguienteId();
-            let descripcion = document.getElementById('descripciondelnuevomodulo').value;
-
-            if(nombredelnuevomodulo){
-
-                if(descripcion){
-
-                    mostrarnuevomodulo(siguienteId,nombredelnuevomodulo,colorFondo,nombreImagen);
-
-                    showAlert("Se ha creado un nuevo modulo","success");
-                    const slideDivmmmodulo = document.getElementById('slideDivmmmodulo');
-                    slideDivmmmodulo.classList.remove('active');
-                }else{
-                    showAlert("La *descripcion* del modulo no es valida","error");
-                }
-
-            }else{
-                showAlert("El *nombre* del modulo no es valido","error");
-            }
-
-            
-        }
-
-        function cerrarmmmodulomodificado(){
+async function gurdarmodulonuevo(){
+    try{
+        const token = sessionStorage.getItem('token_bearer');
+        let nombredelnuevomodulo = document.getElementById('nombredelnuevomodulo').value;
+        let divcolor = document.getElementById('fondoiconoNuevoModulo');
+        let colorFondo = window.getComputedStyle(divcolor).backgroundColor;
+        let imgElemento = document.getElementById('iconoseleccionadoNuevoModulo');
+        let rutaImagen = imgElemento.src;
+        let nombreImagen = rutaImagen.substring(rutaImagen.lastIndexOf('/') + 1);
+        let siguienteId = obtenerSiguienteId();
+        let descripcion = document.getElementById('descripciondelnuevomodulo').value;
+        let form = document.getElementById('createModuleNew');
+        let formData =  new FormData(form);
+        const url = '/modulo';
+        const response = await fetch(url, {
+        method : 'POST',
+        headers : {
+            'Authorization' : `Bearer ${token}`
+        },
+        body : formData
+        })
+        if(response.ok){
+            mostrarnuevomodulo(siguienteId,nombredelnuevomodulo,colorFondo,nombreImagen);
+            showAlert("Se ha creado un nuevo modulo","success");
             const slideDivmmmodulo = document.getElementById('slideDivmmmodulo');
-            slideDivmmmodulo.classList.remove('active'); 
-            showAlert("NO se ha creado un nuevo modulo","alerta");
+            slideDivmmmodulo.classList.remove('active');
+        }else{
+            showAlert("No se pudo crear el modulo");
         }
+    }catch(err){
+        showAlert("Se produjo un error : ", err);
+    }    
+}
 
-         
-        function cerrareliminarmmmodulo(){
-            document.getElementById('modaleliminarmmmodulo').style.display = "none";
+function cerrarmmmodulonuevo(){
+    const slideDivmmmodulo = document.getElementById('slideDivmmmodulo');
+    slideDivmmmodulo.classList.remove('active'); 
+    showAlert("NO se ha creado un nuevo modulo","alerta");
+}
+
+function cerrarmmmodulomodificado(id){
+    const slideDivmmmodulo = document.getElementById('slideDivmmmodulo'+id);
+    slideDivmmmodulo.classList.remove('active'); 
+    showAlert("NO se ha creado un nuevo modulo","alerta");
+}
+
+    
+function cerrareliminarmmmodulo(id){
+    document.getElementById('modaleliminarmmmodulo'+id).style.display = "none";
+}
+
+
+function toggleswitchmmmodulo(usuarioId) {
+    var switchmmmoduloElement = document.getElementById("switchmmmodulo" + usuarioId);
+    var estado = switchmmmoduloElement.checked ? 1 : 0;  
+    var slider = switchmmmoduloElement.nextElementSibling;
+    var color = estado === 1 ? '#47A1A8' : '#FD7377';  
+    slider.style.backgroundColor = color;
+    actualizarEstado(usuarioId, estado);
+}
+
+function actualizarEstado(usuarioId, estado) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "actualizar_estado.php", true); 
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            console.log("Estado de usuario " + usuarioId + " actualizado a " + estado);
         }
+    };
+    xhr.send("usuario_id=" + usuarioId + "&estado=" + estado);  
+}
 
+function toggleswitchmmmoduloclientes(userId) {
+    var checkbox = document.getElementById('switchmmmodulo' + userId);
+    var estado = checkbox.checked ? 1 : 0; 
+    var slider = document.querySelector('#switchmmmodulo' + userId + ' + .slideres');
+    var circle = slider.querySelector('span');
+    if (estado === 1) {
+        slider.style.backgroundColor = '#47A1A8';
+        circle.style.transform = 'translateX(100%)';
+    } else {
+        slider.style.backgroundColor = '#FD7377'; 
+        circle.style.transform = 'translateX(0px)';
+    }
+}
 
-        function toggleswitchmmmodulo(usuarioId) {
-            var switchmmmoduloElement = document.getElementById("switchmmmodulo" + usuarioId);
-            var estado = switchmmmoduloElement.checked ? 1 : 0;  
-            var slider = switchmmmoduloElement.nextElementSibling;
-            var color = estado === 1 ? '#47A1A8' : '#FD7377';  
-            slider.style.backgroundColor = color;
-            actualizarEstado(usuarioId, estado);
-        }
-
-        function actualizarEstado(usuarioId, estado) {
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "actualizar_estado.php", true); 
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    console.log("Estado de usuario " + usuarioId + " actualizado a " + estado);
-                }
-            };
-            xhr.send("usuario_id=" + usuarioId + "&estado=" + estado);  
-        }
-
-        function toggleswitchmmmoduloclientes(userId) {
-            var checkbox = document.getElementById('switchmmmodulo' + userId);
-            var estado = checkbox.checked ? 1 : 0; 
-            var slider = document.querySelector('#switchmmmodulo' + userId + ' + .slideres');
-            var circle = slider.querySelector('span');
-            if (estado === 1) {
-                slider.style.backgroundColor = '#47A1A8';
-                circle.style.transform = 'translateX(100%)';
-            } else {
-                slider.style.backgroundColor = '#FD7377'; 
-                circle.style.transform = 'translateX(0px)';
-            }
-        }
-
-
-
-        let moduloseleccionado = "";
+var moduloseleccionado = "";
         
+async function seleccionarmmodulo(id) {
+    mostrardocumentos(id);
+    moduloseleccionado = id;
 
-        function seleccionarmmodulo(id) {
+    const mmoduloss = document.querySelectorAll('.mmodulossc'); 
+    const nombremmoduloss = document.querySelectorAll('.nombremmodulo');
+    const eliminarmmodulo = document.querySelectorAll('.eliminarmmodulo');
+    const editarmmodulo = document.querySelectorAll('.editarmmodulo');
 
-            mostrardocumentos(id);
-            moduloseleccionado = id;
+    mmoduloss.forEach(emp => {
+        emp.style.backgroundColor = '#F2F3F6';
+    });
 
-            const mmoduloss = document.querySelectorAll('.mmodulossc'); 
-            const nombremmoduloss = document.querySelectorAll('.nombremmodulo');
-            const eliminarmmodulo = document.querySelectorAll('.eliminarmmodulo');
-            const editarmmodulo = document.querySelectorAll('.editarmmodulo');
+    nombremmoduloss.forEach(emp => {
+        emp.style.color = '#868686';
+    });
 
-            mmoduloss.forEach(emp => {
-                emp.style.backgroundColor = '#F2F3F6';
-            });
+    eliminarmmodulo.forEach(emp => {
+        emp.src = 'https://img.icons8.com/material-outlined/24/47A1A8/delete.png';
+    });
 
-            nombremmoduloss.forEach(emp => {
-                emp.style.color = '#868686';
-            });
+    editarmmodulo.forEach(emp => {
+        emp.src = 'https://img.icons8.com/material-outlined/24/47A1A8/edit.png';
+    });
 
-            eliminarmmodulo.forEach(emp => {
-                emp.src = 'https://img.icons8.com/material-outlined/24/47A1A8/delete.png';
-            });
-
-            editarmmodulo.forEach(emp => {
-                emp.src = 'https://img.icons8.com/material-outlined/24/47A1A8/edit.png';
-            });
-
-            const mmodulosseleccionada = document.getElementById('mmodulo' + id);
-            let nombremmodulosseleccionada = document.getElementById('nombremmodulo' + id);
-            let eliminarmmodulosseleccionada = document.getElementById('eliminarmmodulo' + id);
-            let editarmmodulosseleccionada = document.getElementById('editarmmodulo' + id);
-            mmodulosseleccionada.style.backgroundColor = 'RGBA(71, 161, 168, .8)';
-            nombremmodulosseleccionada.style.color = '#ffffff';
-            eliminarmmodulosseleccionada.src = 'https://img.icons8.com/material-outlined/24/ffffff/delete.png';
-            editarmmodulosseleccionada.src = 'https://img.icons8.com/material-outlined/24/ffffff/edit.png';
+    const mmodulosseleccionada = document.getElementById('mmodulo' + id);
+    let nombremmodulosseleccionada = document.getElementById('nombremmodulo' + id);
+    let eliminarmmodulosseleccionada = document.getElementById('eliminarmmodulo' + id);
+    let editarmmodulosseleccionada = document.getElementById('editarmmodulo' + id);
+    mmodulosseleccionada.style.backgroundColor = 'RGBA(71, 161, 168, .8)';
+    nombremmodulosseleccionada.style.color = '#ffffff';
+    eliminarmmodulosseleccionada.src = 'https://img.icons8.com/material-outlined/24/ffffff/delete.png';
+    editarmmodulosseleccionada.src = 'https://img.icons8.com/material-outlined/24/ffffff/edit.png';
 
 
+}
+
+function movermoduloss(modulossAMover, zonaDestino) {
+    const zonaOrigen = document.getElementById('moduloss');
+    const zonaDestinoElement = document.getElementById(zonaDestino);
+    if (!zonaDestinoElement) {
+        console.error('Zona de destino no encontrada:', zonaDestino);
+        return;
+    }
+    zonaOrigen.querySelectorAll('.modulossarrastrar').forEach(item => {
+        const moduloId = item.id;
+        if (modulossAMover.includes(moduloId)) {
+            zonaDestinoElement.appendChild(item);
         }
+    });
+}
 
-        function movermoduloss(modulossAMover, zonaDestino) {
-            const zonaOrigen = document.getElementById('moduloss');
-            const zonaDestinoElement = document.getElementById(zonaDestino);
-            if (!zonaDestinoElement) {
-                console.error('Zona de destino no encontrada:', zonaDestino);
-                return;
-            }
-            zonaOrigen.querySelectorAll('.modulossarrastrar').forEach(item => {
-                const moduloId = item.id;
-                if (modulossAMover.includes(moduloId)) {
-                    zonaDestinoElement.appendChild(item);
-                }
-            });
+var acordeones = document.querySelectorAll('.abriracordion');  // Seleccionamos solo los elementos <p>
+
+acordeones.forEach(function(acordeon) {
+    acordeon.addEventListener('click', function() {
+        // Al hacer clic en el <p>, obtenemos el siguiente elemento hermano (el panel)
+        var panel = acordeon.closest('.acordeon-item').querySelector('.panel');
+        
+        // Verifica si el panel está visible o no
+        if (panel.style.display === "block") {
+            panel.style.display = "none";
+        } else {
+            panel.style.display = "block";
         }
-
-        var acordeones = document.querySelectorAll('.abriracordion');  // Seleccionamos solo los elementos <p>
-
-        acordeones.forEach(function(acordeon) {
-            acordeon.addEventListener('click', function() {
-                // Al hacer clic en el <p>, obtenemos el siguiente elemento hermano (el panel)
-                var panel = acordeon.closest('.acordeon-item').querySelector('.panel');
-                
-                // Verifica si el panel está visible o no
-                if (panel.style.display === "block") {
-                    panel.style.display = "none";
-                } else {
-                    panel.style.display = "block";
-                }
-            });
-        });
+    });
+});
 
 
-        // Habilitar arrastrar y soltar
-        const acordeonItems = document.querySelectorAll('.acordeon-item');
-        acordeonItems.forEach(item => {
-            item.addEventListener('dragstart', dragStart);
-            item.addEventListener('dragover', dragOver);
-            item.addEventListener('drop', drop);
-            item.addEventListener('dragleave', dragLeave);
-        });
+// Habilitar arrastrar y soltar
+const acordeonItems = document.querySelectorAll('.acordeon-item');
+acordeonItems.forEach(item => {
+    item.addEventListener('dragstart', dragStart);
+    item.addEventListener('dragover', dragOver);
+    item.addEventListener('drop', drop);
+    item.addEventListener('dragleave', dragLeave);
+});
 
-        let draggedItem = null;
+let draggedItem = null;
 
-        function dragStart(e) {
-            draggedItem = this;
-            setTimeout(() => {
-            this.style.visibility = "hidden"; 
-            }, 0);
-        }
+function dragStart(e) {
+    draggedItem = this;
+    setTimeout(() => {
+    this.style.visibility = "hidden"; 
+    }, 0);
+}
 
-        function dragOver(e) {
-            e.preventDefault();
-        }
+function dragOver(e) {
+    e.preventDefault();
+}
 
-        function drop(e) {
-            e.preventDefault();
-            if (draggedItem !== this) {
-            this.parentNode.insertBefore(draggedItem, this.nextSibling);
-            }
-            draggedItem.style.visibility = "visible"; 
-            draggedItem = null;
-        }
+function drop(e) {
+    e.preventDefault();
+    if (draggedItem !== this) {
+    this.parentNode.insertBefore(draggedItem, this.nextSibling);
+    }
+    draggedItem.style.visibility = "visible"; 
+    draggedItem = null;
+}
 
-        function dragLeave() {
-            if (draggedItem) {
-            draggedItem.style.visibility = "visible";
-            }
-        }
+function dragLeave() {
+    if (draggedItem) {
+    draggedItem.style.visibility = "visible";
+    }
+}
 
         const images = ["img/1.svg", "img/2.svg","img/3.svg","img/4.svg","img/5.svg","img/6.svg","img/7.svg","img/8.svg","img/9.svg","img/10.svg","img/11.svg","img/12.svg","img/13.svg","img/14.svg","img/15.svg","img/16.svg","img/17.svg","img/18.svg","img/19.svg",];
         let currentIndex = 0; 
@@ -566,11 +676,28 @@ $msdemmodulo = [
             } else if (direction === 'right') {
                 currentIndex = (currentIndex + 1) % images.length; 
             }
-            document.getElementById("iconoseleccionado").src = images[currentIndex];
+            document.getElementById("iconoseleccionadoNuevoModulo").src = images[currentIndex];
+            document.getElementById("iconLogoModuleNewModule").value = images[currentIndex];
+        }
+
+        function moveSlideUpdateForm(direction,id) {
+            if (direction === 'left') {
+                currentIndex = (currentIndex - 1 + images.length) % images.length; 
+            } else if (direction === 'right') {
+                currentIndex = (currentIndex + 1) % images.length; 
+            }
+            document.getElementById("iconoseleccionado"+id).src = images[currentIndex];
+            document.getElementById("iconLogoModuleUpdate"+id).value = images[currentIndex];
+        }
+        
+        function seleccionarcolorUpdate(color,id) {
+            document.getElementById('fondoiConoUpdate'+id).style.backgroundColor = color;
+            document.getElementById('colorBackgroundIconUpdate'+id).value = color;
         }
 
         function seleccionarcolor(color) {
-            document.getElementById('fondoicono').style.backgroundColor = color;
+            document.getElementById('fondoiconoNuevoModulo').style.backgroundColor = color;
+            document.getElementById('colorBackgroundIconNewModule').value = color;
         }
 
         function guardartodo(){
@@ -762,247 +889,248 @@ $msdemmodulo = [
         }
 
 
-        function getModuloDocuments(moduloId) {
-        var msdemmodulo = <?php echo json_encode($msdemmodulo); ?>;
-        var modulo = msdemmodulo.find(function(modulo) {
-            return modulo.id === moduloId;
-        });
+ function getModuloDocuments(moduloId) {
+    //var msdemmodulo = <?php echo json_encode($msdemmodulo); ?>;
+    var msdemmodulo = <?php echo json_encode($arrayModulDocumentAll); ?>;
+    var modulo = msdemmodulo.find(function(modulo) {
+        return modulo.id === moduloId;
+    });
         if (modulo) {
             return modulo.documentos;
         } else {
             return [];
         }
-        }
+}
 
 
-        let contadorId = 0;
-        let documento = 0;
-        function agregarDocumento(titulo, urlDocumento, urlVideo, descripcion) {
-            contadorId++;
+let contadorId = 0;
+let documento = 0;
+function agregarDocumento(titulo, urlDocumento, urlVideo, descripcion) {
+    contadorId++;
 
-            // Obtener el contenedor donde se agregarán los nuevos documentos
-            const acordeonContainer = document.querySelector('.acordeon-container');
+    // Obtener el contenedor donde se agregarán los nuevos documentos
+    const acordeonContainer = document.querySelector('.acordeon-container');
 
-            // Crear la estructura del nuevo documento
-            const listadedocumentos = document.createElement('div');
-            listadedocumentos.style.width = '100%';
-            listadedocumentos.style.display = 'flex';
-            listadedocumentos.style.flexDirection = 'column';
-            listadedocumentos.id = 'documento'+contadorId;
+    // Crear la estructura del nuevo documento
+    const listadedocumentos = document.createElement('div');
+    listadedocumentos.style.width = '100%';
+    listadedocumentos.style.display = 'flex';
+    listadedocumentos.style.flexDirection = 'column';
+    listadedocumentos.id = 'documento'+contadorId;
 
-            const acordeonItem = document.createElement('div');
-            acordeonItem.classList.add('acordeon-item');
-            acordeonItem.setAttribute('draggable', 'true');
-            acordeonItem.id = `acordeon-item-${contadorId}`; // Asignar un ID único al acordeón
+    const acordeonItem = document.createElement('div');
+    acordeonItem.classList.add('acordeon-item');
+    acordeonItem.setAttribute('draggable', 'true');
+    acordeonItem.id = `acordeon-item-${contadorId}`; // Asignar un ID único al acordeón
 
-            const acordeon = document.createElement('div');
-            acordeon.classList.add('acordeon');
-            acordeon.style.display = 'flex';
-            acordeon.style.flexDirection = 'row';
-            acordeon.style.paddingLeft = '3%';
-            acordeon.style.boxSizing = 'border-box';
-            acordeon.style.alignItems = 'center';
-            acordeon.style.justifyContent = 'space-between';
-            acordeon.style.cursor = 'pointer'; // Para permitir que sea clickeable y abra/cierre el panel
+    const acordeon = document.createElement('div');
+    acordeon.classList.add('acordeon');
+    acordeon.style.display = 'flex';
+    acordeon.style.flexDirection = 'row';
+    acordeon.style.paddingLeft = '3%';
+    acordeon.style.boxSizing = 'border-box';
+    acordeon.style.alignItems = 'center';
+    acordeon.style.justifyContent = 'space-between';
+    acordeon.style.cursor = 'pointer'; // Para permitir que sea clickeable y abra/cierre el panel
 
-            const pTitulo = document.createElement('p');
-            pTitulo.classList.add('abriracordion');
-            pTitulo.style.width = '70%';
-            pTitulo.textContent = titulo;
+    const pTitulo = document.createElement('p');
+    pTitulo.classList.add('abriracordion');
+    pTitulo.style.width = '70%';
+    pTitulo.textContent = titulo;
 
-            const imgEliminar = document.createElement('img');
-            imgEliminar.id = `eliminar-${contadorId}`;
-            imgEliminar.src = 'https://img.icons8.com/material-outlined/24/47A1A8/delete.png';
-            imgEliminar.alt = 'eliminar';
-            imgEliminar.style.height = '50%';
-            imgEliminar.style.marginRight = '3%';
+    const imgEliminar = document.createElement('img');
+    imgEliminar.id = `eliminar-${contadorId}`;
+    imgEliminar.src = 'https://img.icons8.com/material-outlined/24/47A1A8/delete.png';
+    imgEliminar.alt = 'eliminar';
+    imgEliminar.style.height = '50%';
+    imgEliminar.style.marginRight = '3%';
 
-            imgEliminar.addEventListener('click', function() {
-                event.stopPropagation();
-                const numero = imgEliminar.id.match(/\d+$/)[0];
-                documento = numero;
-                document.getElementById('modaleliminardocumento').style.display = "flex";
-            });
+    imgEliminar.addEventListener('click', function() {
+        event.stopPropagation();
+        const numero = imgEliminar.id.match(/\d+$/)[0];
+        documento = numero;
+        document.getElementById('modaleliminardocumento').style.display = "flex";
+    });
 
-            acordeon.appendChild(pTitulo);
-            acordeon.appendChild(imgEliminar);
+    acordeon.appendChild(pTitulo);
+    acordeon.appendChild(imgEliminar);
 
-            // Crear el panel del acordeón (el contenido que se mostrará/ocultará)
-            const panel = document.createElement('div');
-            panel.classList.add('panel'); // Asegurarnos de tener un estilo para los paneles en el acordeón
-            panel.style.display = 'none'; // Inicialmente oculto
-            panel.style.marginTop = '-10px'; // Separar del título
+    // Crear el panel del acordeón (el contenido que se mostrará/ocultará)
+    const panel = document.createElement('div');
+    panel.classList.add('panel'); // Asegurarnos de tener un estilo para los paneles en el acordeón
+    panel.style.display = 'none'; // Inicialmente oculto
+    panel.style.marginTop = '-10px'; // Separar del título
 
-            // Contenedor de los inputs y el formulario
-            const contenedorFormulario = document.createElement('div');
-            //contenedorFormulario.style.marginBottom = '16px';
+    // Contenedor de los inputs y el formulario
+    const contenedorFormulario = document.createElement('div');
+    //contenedorFormulario.style.marginBottom = '16px';
 
-            // Input para URL del documento
-            const contenedorInputDocumento = document.createElement('div');
-            //contenedorInputDocumento.style.marginBottom = '16px';
-            contenedorInputDocumento.style.display = 'flex';
-            contenedorInputDocumento.style.justifyContent = 'space-between';
-            contenedorInputDocumento.style.alignItems = 'center';
+    // Input para URL del documento
+    const contenedorInputDocumento = document.createElement('div');
+    //contenedorInputDocumento.style.marginBottom = '16px';
+    contenedorInputDocumento.style.display = 'flex';
+    contenedorInputDocumento.style.justifyContent = 'space-between';
+    contenedorInputDocumento.style.alignItems = 'center';
 
-            const inputDocumento = document.createElement('input');
-            inputDocumento.id = `ulrdelfile-${contadorId}`; // ID único para el input
-            inputDocumento.type = 'text';
-            inputDocumento.name = 'mmodulo';
-            inputDocumento.value = urlDocumento || '';
-            inputDocumento.placeholder = 'URL de documento ejemplo';
-            inputDocumento.style.width = '67%';
-            inputDocumento.style.padding = '8px';
-            inputDocumento.style.border = '2px solid #F6F8FB';
-            inputDocumento.style.borderRadius = '8px';
-            inputDocumento.style.fontSize = '14px';
-            inputDocumento.style.backgroundColor = '#FAFBFE';
-            inputDocumento.style.color = '#333';
+    const inputDocumento = document.createElement('input');
+    inputDocumento.id = `ulrdelfile-${contadorId}`; // ID único para el input
+    inputDocumento.type = 'text';
+    inputDocumento.name = 'mmodulo';
+    inputDocumento.value = urlDocumento || '';
+    inputDocumento.placeholder = 'URL de documento ejemplo';
+    inputDocumento.style.width = '67%';
+    inputDocumento.style.padding = '8px';
+    inputDocumento.style.border = '2px solid #F6F8FB';
+    inputDocumento.style.borderRadius = '8px';
+    inputDocumento.style.fontSize = '14px';
+    inputDocumento.style.backgroundColor = '#FAFBFE';
+    inputDocumento.style.color = '#333';
 
-            // Botón para subir un archivo
-            const labelSubir = document.createElement('label');
-            labelSubir.setAttribute('for', `fileInput-${contadorId}`); // ID único para el input de archivo
-            labelSubir.style.cursor = 'pointer';
-            labelSubir.style.width = '28%';
-            labelSubir.style.height = '36px';
-            labelSubir.style.backgroundColor = '#47A1A8';
-            labelSubir.style.borderRadius = '10px';
-            labelSubir.style.display = 'flex';
-            labelSubir.style.alignItems = 'center';
-            labelSubir.style.justifyContent = 'center';
-            labelSubir.style.border = '2px solid #47A1A8';
+    // Botón para subir un archivo
+    const labelSubir = document.createElement('label');
+    labelSubir.setAttribute('for', `fileInput-${contadorId}`); // ID único para el input de archivo
+    labelSubir.style.cursor = 'pointer';
+    labelSubir.style.width = '28%';
+    labelSubir.style.height = '36px';
+    labelSubir.style.backgroundColor = '#47A1A8';
+    labelSubir.style.borderRadius = '10px';
+    labelSubir.style.display = 'flex';
+    labelSubir.style.alignItems = 'center';
+    labelSubir.style.justifyContent = 'center';
+    labelSubir.style.border = '2px solid #47A1A8';
 
-            const pSubir = document.createElement('p');
-            pSubir.style.color = '#ffffff';
-            pSubir.style.fontSize = '14px';
-            pSubir.style.margin = '0';
-            pSubir.textContent = 'Subir ejemplo';
-            labelSubir.appendChild(pSubir);
+    const pSubir = document.createElement('p');
+    pSubir.style.color = '#ffffff';
+    pSubir.style.fontSize = '14px';
+    pSubir.style.margin = '0';
+    pSubir.textContent = 'Subir ejemplo';
+    labelSubir.appendChild(pSubir);
 
-            const inputFile = document.createElement('input');
-            inputFile.type = 'file';
-            inputFile.id = `fileInput-${contadorId}`;
-            inputFile.style.display = 'none';
-            inputFile.addEventListener('change', function() {
-                inputDocumento.value = this.files[0]?.name || '';
-            });
+    const inputFile = document.createElement('input');
+    inputFile.type = 'file';
+    inputFile.id = `fileInput-${contadorId}`;
+    inputFile.style.display = 'none';
+    inputFile.addEventListener('change', function() {
+        inputDocumento.value = this.files[0]?.name || '';
+    });
 
-            contenedorInputDocumento.appendChild(inputDocumento);
-            contenedorInputDocumento.appendChild(labelSubir);
-            contenedorInputDocumento.appendChild(inputFile);
+    contenedorInputDocumento.appendChild(inputDocumento);
+    contenedorInputDocumento.appendChild(labelSubir);
+    contenedorInputDocumento.appendChild(inputFile);
 
-            // Agregar el input para URL del documento al formulario
-            contenedorFormulario.appendChild(contenedorInputDocumento);
+    // Agregar el input para URL del documento al formulario
+    contenedorFormulario.appendChild(contenedorInputDocumento);
 
-            // Select de formulario
-            const selectFormulario = document.createElement('select');
-            selectFormulario.name = '';
-            selectFormulario.id = `selectFormulario-${contadorId}`; // ID único para el select
-            selectFormulario.style.width = '100%';
-            selectFormulario.style.height = '36px';
-            selectFormulario.style.marginTop = '10px';
-            selectFormulario.style.border = '2px solid #F6F8FB';
-            selectFormulario.style.borderRadius = '8px';
-            selectFormulario.style.fontSize = '14px';
-            selectFormulario.style.backgroundColor = '#FAFBFE';
-            selectFormulario.style.color = '#333';
+    // Select de formulario
+    const selectFormulario = document.createElement('select');
+    selectFormulario.name = '';
+    selectFormulario.id = `selectFormulario-${contadorId}`; // ID único para el select
+    selectFormulario.style.width = '100%';
+    selectFormulario.style.height = '36px';
+    selectFormulario.style.marginTop = '10px';
+    selectFormulario.style.border = '2px solid #F6F8FB';
+    selectFormulario.style.borderRadius = '8px';
+    selectFormulario.style.fontSize = '14px';
+    selectFormulario.style.backgroundColor = '#FAFBFE';
+    selectFormulario.style.color = '#333';
 
-            const optionDefault = document.createElement('option');
-            optionDefault.value = '';
-            optionDefault.selected = true;
-            optionDefault.disabled = true;
-            optionDefault.textContent = 'Seleccione un formulario si es necesario';
+    const optionDefault = document.createElement('option');
+    optionDefault.value = '';
+    optionDefault.selected = true;
+    optionDefault.disabled = true;
+    optionDefault.textContent = 'Seleccione un formulario si es necesario';
 
-            const optionFormulario = document.createElement('option');
-            optionFormulario.value = 'formulario1';
-            optionFormulario.textContent = 'Formulario 1';
+    const optionFormulario = document.createElement('option');
+    optionFormulario.value = 'formulario1';
+    optionFormulario.textContent = 'Formulario 1';
 
-            selectFormulario.appendChild(optionDefault);
-            selectFormulario.appendChild(optionFormulario);
+    selectFormulario.appendChild(optionDefault);
+    selectFormulario.appendChild(optionFormulario);
 
-            // Agregar el select al formulario
-            //contenedorFormulario.appendChild(selectFormulario);
+    // Agregar el select al formulario
+    //contenedorFormulario.appendChild(selectFormulario);
 
-            // Input para URL de video explicativo
-            const inputVideo = document.createElement('input');
-            inputVideo.type = 'text';
-            inputVideo.value = urlVideo || '';
-            inputVideo.placeholder = 'URL de video explicativo';
-            inputVideo.style.marginTop = '10px';
-            inputVideo.style.width = '98%';
-            inputVideo.style.padding = '8px';
-            inputVideo.style.border = '2px solid #F6F8FB';
-            inputVideo.style.borderRadius = '8px';
-            inputVideo.style.fontSize = '14px';
-            inputVideo.style.backgroundColor = '#FAFBFE';
-            inputVideo.style.color = '#333';
+    // Input para URL de video explicativo
+    const inputVideo = document.createElement('input');
+    inputVideo.type = 'text';
+    inputVideo.value = urlVideo || '';
+    inputVideo.placeholder = 'URL de video explicativo';
+    inputVideo.style.marginTop = '10px';
+    inputVideo.style.width = '98%';
+    inputVideo.style.padding = '8px';
+    inputVideo.style.border = '2px solid #F6F8FB';
+    inputVideo.style.borderRadius = '8px';
+    inputVideo.style.fontSize = '14px';
+    inputVideo.style.backgroundColor = '#FAFBFE';
+    inputVideo.style.color = '#333';
 
-            // Agregar el input de video al formulario
-            contenedorFormulario.appendChild(inputVideo);
+    // Agregar el input de video al formulario
+    contenedorFormulario.appendChild(inputVideo);
 
-            // Textarea para descripción del módulo
-            const textareaDescripcion = document.createElement('textarea');
-            textareaDescripcion.placeholder = 'Descripción del módulo';
-            textareaDescripcion.rows = 3;
-            textareaDescripcion.style.width = '98%';
-            textareaDescripcion.style.marginTop = '10px';
-            textareaDescripcion.style.padding = '8px';
-            textareaDescripcion.style.border = '2px solid #F6F8FB';
-            textareaDescripcion.style.borderRadius = '8px';
-            textareaDescripcion.style.fontSize = '14px';
-            textareaDescripcion.style.backgroundColor = '#FAFBFE';
-            textareaDescripcion.style.color = '#333';
-            textareaDescripcion.style.resize = 'none';
-            textareaDescripcion.value = descripcion || '';
+    // Textarea para descripción del módulo
+    const textareaDescripcion = document.createElement('textarea');
+    textareaDescripcion.placeholder = 'Descripción del módulo';
+    textareaDescripcion.rows = 3;
+    textareaDescripcion.style.width = '98%';
+    textareaDescripcion.style.marginTop = '10px';
+    textareaDescripcion.style.padding = '8px';
+    textareaDescripcion.style.border = '2px solid #F6F8FB';
+    textareaDescripcion.style.borderRadius = '8px';
+    textareaDescripcion.style.fontSize = '14px';
+    textareaDescripcion.style.backgroundColor = '#FAFBFE';
+    textareaDescripcion.style.color = '#333';
+    textareaDescripcion.style.resize = 'none';
+    textareaDescripcion.value = descripcion || '';
 
-            // Agregar el textarea al formulario
-            contenedorFormulario.appendChild(textareaDescripcion);
+    // Agregar el textarea al formulario
+    contenedorFormulario.appendChild(textareaDescripcion);
 
-            // Botón para guardar
-            const botonGuardar = document.createElement('div');
-            botonGuardar.style.cursor = 'pointer';
-            botonGuardar.style.width = '30%';
-            botonGuardar.style.height = '36px';
-            botonGuardar.style.marginTop = '10px';
-            botonGuardar.style.backgroundColor = '#47A1A8';
-            botonGuardar.style.borderRadius = '10px';
-            botonGuardar.style.display = 'flex';
-            botonGuardar.style.alignItems = 'center';
-            botonGuardar.style.justifyContent = 'center';
-            botonGuardar.style.border = '2px solid #47A1A8';
-            botonGuardar.addEventListener('click', function() {
-                // Aquí puedes agregar la lógica para guardar el documento
-                console.log('Guardar documento');
-                showAlert("Documento guardado","success");
-            });
+    // Botón para guardar
+    const botonGuardar = document.createElement('div');
+    botonGuardar.style.cursor = 'pointer';
+    botonGuardar.style.width = '30%';
+    botonGuardar.style.height = '36px';
+    botonGuardar.style.marginTop = '10px';
+    botonGuardar.style.backgroundColor = '#47A1A8';
+    botonGuardar.style.borderRadius = '10px';
+    botonGuardar.style.display = 'flex';
+    botonGuardar.style.alignItems = 'center';
+    botonGuardar.style.justifyContent = 'center';
+    botonGuardar.style.border = '2px solid #47A1A8';
+    botonGuardar.addEventListener('click', function() {
+        // Aquí puedes agregar la lógica para guardar el documento
+        console.log('Guardar documento');
+        showAlert("Documento guardado","success");
+    });
 
-            const pGuardar = document.createElement('p');
-            pGuardar.style.color = '#ffffff';
-            pGuardar.style.fontSize = '14px';
-            pGuardar.textContent = 'Guardar documento';
+    const pGuardar = document.createElement('p');
+    pGuardar.style.color = '#ffffff';
+    pGuardar.style.fontSize = '14px';
+    pGuardar.textContent = 'Guardar documento';
 
-            botonGuardar.appendChild(pGuardar);
+    botonGuardar.appendChild(pGuardar);
 
-            // Agregar el botón de guardar al formulario
-            contenedorFormulario.appendChild(botonGuardar);
+    // Agregar el botón de guardar al formulario
+    contenedorFormulario.appendChild(botonGuardar);
 
-            // Agregar el contenedor del formulario al panel
-            panel.appendChild(contenedorFormulario);
+    // Agregar el contenedor del formulario al panel
+    panel.appendChild(contenedorFormulario);
 
-            // Agregar acordeon y panel al item
-            acordeonItem.appendChild(acordeon);
-            acordeonItem.appendChild(panel);
+    // Agregar acordeon y panel al item
+    acordeonItem.appendChild(acordeon);
+    acordeonItem.appendChild(panel);
 
-            // Agregar item al acordeón
-            listadedocumentos.appendChild(acordeonItem);
+    // Agregar item al acordeón
+    listadedocumentos.appendChild(acordeonItem);
 
-            // Agregar documento a contenedor de acordeón
-            acordeonContainer.appendChild(listadedocumentos);
+    // Agregar documento a contenedor de acordeón
+    acordeonContainer.appendChild(listadedocumentos);
 
-            // Añadir funcionalidad de abrir/cerrar el acordeón
-            acordeon.addEventListener('click', function() {
-                panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
-            });
-        }
+    // Añadir funcionalidad de abrir/cerrar el acordeón
+    acordeon.addEventListener('click', function() {
+        panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+    });
+}
 
         function eliminardocuemnto(id) {
             
@@ -1019,6 +1147,7 @@ $msdemmodulo = [
 
         function nuevodocumento(){
             if(moduloseleccionado){
+                let dataFormDocument = document.getElementById('');
                 document.getElementById('modalnuevodocumento').style.display = "flex"
             }else{
                 showAlert("No hay un modulo seleccionado","alerta");
@@ -1029,11 +1158,43 @@ $msdemmodulo = [
             document.getElementById('modalnuevodocumento').style.display = "none"
         }
 
-        function crearnuevodocumento(){
-            let nombre = document.getElementById('nombredelnuevodocumento').value;
-            agregarDocumento(nombre, '', '', '','');
-            ocultarmodalsumardocumento();
+async function crearnuevodocumento(event){
+    try{
+        event.preventDefault()
+        const token = sessionStorage.getItem('token_bearer');
+        let dataFormDocument= document.getElementById('createDocumentForm');
+        if(dataFormDocument.checkValidity()){
+            let formData = new FormData(dataFormDocument);
+            formData.append('idModule', moduloseleccionado );
+            for (let [key, value] of formData.entries()) {
+                console.log(key, value);
+            }
+            const url = '/documento';
+            var response =  await fetch(url, {
+                method: 'POST',
+                headers : {
+                            'Authorization' : `Bearer ${token}`
+                },
+            body : formData
+            });
+            if(response.ok){
+                const responseData = await response.json();
+                let nombre = document.getElementById('nombredelnuevodocumento').value;
+                agregarDocumento(nombre, '', '', '','');
+                ocultarmodalsumardocumento();
+                showAlert(responseData.message, 'success');
+            }else{
+                const responseData = await response.json();
+                showAlert(`Error: ${responseData['message']}`, 'error');
+            }
+        }else{
+            form.reportValidity();
+            showAlert(`Error: llene los datos del formulario`, 'error');
         }
+    }catch(err){
+        showAlert(`Ocurrió un error al enviar la solicitud: verifique los campos o el tipo de archivo`, 'error');
+    }
+}
 
         function confirmareliminardocumento(){
             let palabraeliminardocumento = document.getElementById('palabraeliminardocumento').value;

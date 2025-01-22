@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SectorRequest extends FormRequest
+class ModuleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,10 @@ class SectorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'sectorName' => ['required', 'string']
+            'colorModule' => ['required', 'string'],
+            'moduleName' => ['required', 'string'],
+            'description' => ['string'],
+            'icon' => ['required', 'string']
         ];
     }
 }

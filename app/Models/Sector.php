@@ -11,7 +11,8 @@ class Sector extends Model
     use HasFactory;
 
     protected $fillable=[
-        'sectorName'
+        'sectorName',
+        'ModulesSector'
     ];
 
     public function company() : BelongsTo{

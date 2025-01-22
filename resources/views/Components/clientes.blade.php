@@ -527,16 +527,12 @@ async function sendEmailForAdmin(id, event) {
         let form = document.getElementById('emailAdminForUserInfo' + id);
         let formData = new FormData(form);
         const data = Object.fromEntries(formData.entries());
-
-        console.log(data);
-
         const url = "/enviarEmailUsuario";
         const response = await fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type' : 'application/json',
                 'Authorization': `Bearer ${token}`,
-                // No incluyas Content-Type para FormData, se establece automáticamente
             },
             body: JSON.stringify(data)
         });
